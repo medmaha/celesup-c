@@ -89,7 +89,6 @@ function Form(props: Props): JSX.Element {
                     ]}
                     <div className="flex justify-end">
                         <Button
-                            role="button"
                             text={submitBtn}
                             disabled={!validated}
                             className={`py-2 px-5 rounded-md w-full transition-[background-color] ${
