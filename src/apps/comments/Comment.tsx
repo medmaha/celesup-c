@@ -10,6 +10,7 @@ import UserCard from "../../components/UI/UserCard"
 import { GlobalContext } from "../../layouts/context"
 
 import { CommentInterface, CommentPropsInterface } from "./interface"
+import { AuthUser } from "../../types/user"
 
 export default function Comment({
     data,
@@ -22,12 +23,12 @@ export default function Comment({
     const [toggleReply, setToggleReply] = useState(false)
     const commentDateTime = new CSDateTime(data.created_at)
 
-    function handleCommentReplyChange(ev) {
+    function handleCommentReplyChange(ev: any) {
         const content = ev.currentTarget
         if (content.value?.trim().length < 2) return
     }
 
-    function handleCommentReplySubmit(ev) {
+    function handleCommentReplySubmit(ev: any) {
         const content = ev.target
         if (content.value?.trim().length < 2) return
 
@@ -35,7 +36,7 @@ export default function Comment({
         const form = new FormData()
 
         form.append("post", comment.post.key)
-        form.append("parent", comment.id)
+        form.append("parent", comment.id!)
         form.append("content", content.value.trim())
 
         celesupBackendApi
@@ -54,17 +55,17 @@ export default function Comment({
             .catch((err) => {})
     }
 
-    function renderParentName(cmm: CommentInterface) {
-        function render(reply: CommentInterface, idx: number) {
+    function renderParentName(cmm: CommentInterface): JSX.Element {
+        function render(reply: CommentInterface, idx: number): JSX.Element {
             if (reply.parent) {
                 return (
                     <>
-                        {reply.author.id !== comment.author.id && (
+                        {reply.author?.id !== comment.author?.id && (
                             <>
                                 <UserCard
                                     link={true}
-                                    author={reply.author}
-                                    btnElement={getUsername(reply.author)}
+                                    author={reply.author!}
+                                    btnElement={getUsername(reply.author!)}
                                 />
                                 <span className="text-primary">{" and "}</span>
                             </>
@@ -78,8 +79,8 @@ export default function Comment({
                 <>
                     <UserCard
                         link={true}
-                        author={reply.author}
-                        btnElement={getUsername(reply.author)}
+                        author={reply.author!}
+                        btnElement={getUsername(reply.author!)}
                     />
                     <span className="text-primary">{" and "}</span>
                     {renderParentName(reply)}
@@ -88,10 +89,10 @@ export default function Comment({
         }
 
         if (cmm.parent?.id) {
-            return render(comment.parent, 0)
+            return render(cmm.parent, 0)
         }
 
-        function getUsername(author) {
+        function getUsername(author: AuthUser) {
             if (author.id === globalContext.user.id) {
                 return <span className="text-bold">Me</span>
             }
@@ -101,7 +102,7 @@ export default function Comment({
         return (
             <UserCard
                 link={true}
-                author={cmm.author}
+                author={cmm.author!}
                 btnElement={getUsername(comment.post.author)}
             />
         )
@@ -116,17 +117,19 @@ export default function Comment({
                 <UserCard
                     btnElement={
                         <div className="rounded-full outline-2 cs-outline w-[40px] h-[40px] mr-3">
-                            <Image
-                                className="rounded-full w-full h-full"
-                                width={40}
-                                height={40}
-                                style={{ objectFit: "cover" }}
-                                src={comment.author.avatar}
-                                alt="comment author avatar"
-                            />
+                            {comment?.author && (
+                                <Image
+                                    className="rounded-full w-full h-full"
+                                    width={40}
+                                    height={40}
+                                    style={{ objectFit: "cover" }}
+                                    src={comment.author.avatar}
+                                    alt="comment author avatar"
+                                />
+                            )}
                         </div>
                     }
-                    author={comment.author}
+                    author={comment.author!}
                     link={false}
                 />
             </div>
@@ -135,8 +138,10 @@ export default function Comment({
                     <div className="text-lg font-medium flex items-center gap-2">
                         <UserCard
                             link={false}
-                            btnElement={<span>@{comment.author.username}</span>}
-                            author={comment.author}
+                            btnElement={
+                                <span>@{comment.author?.username}</span>
+                            }
+                            author={comment.author!}
                         />
                         <span className="text-gray-600 text-sm">
                             {commentDateTime.format()}

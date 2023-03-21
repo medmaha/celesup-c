@@ -3,33 +3,38 @@ import { celesupBackendApi } from "../../axiosInstance"
 import Textarea from "../../components/UI/Textarea"
 import { usePostComment } from "../../hooks"
 import CommentList from "./CommentList"
-import { CommentsWrapperPropsInterface } from "./interface"
+import { Post } from "../posts/types/post"
 
-export default function CommentsWrapper({
-    post,
-}: CommentsWrapperPropsInterface) {
-    const commentRapperRef = useRef(null)
+type Props = {
+    post: Post
+}
+
+export default function CommentsWrapper({ post }: Props) {
+    const commentRapperRef = useRef<HTMLDivElement>(null)
     const { comments, getComments, updateComments } = usePostComment(post.key)
 
     useLayoutEffect(() => {
-        if (!post.key) return
-        commentRapperRef.current.style.display = "block"
-        commentRapperRef.current.style.opacity = "1"
-        commentRapperRef.current
-            .querySelector(`#post_${post.key}_comment_create`)
-            .focus()
+        if (commentRapperRef.current && post.key) {
+            commentRapperRef.current.style.display = "block"
+            commentRapperRef.current.style.opacity = "1"
+
+            const commentTextarea = commentRapperRef.current.querySelector(
+                `#post_${post.key}_comment_create`,
+            )! as HTMLTextAreaElement
+            commentTextarea.focus()
+        }
     }, [post])
 
-    function handleCreateCommentChange(ev) {
-        const content = commentRapperRef.current.querySelector(
+    function handleCreateCommentChange(ev: any) {
+        const content = commentRapperRef.current!.querySelector(
             `#post_${post.key}_comment_create`,
         )
     }
 
-    function handleCreateCommentSubmit(ev) {
-        const content = commentRapperRef.current.querySelector(
+    function handleCreateCommentSubmit(ev: any) {
+        const content = commentRapperRef.current!.querySelector(
             `#post_${post.key}_comment_create`,
-        )
+        ) as HTMLTextAreaElement
 
         if (content.value.trim().length < 2) return
 

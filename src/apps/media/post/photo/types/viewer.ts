@@ -1,5 +1,3 @@
-import { ReduxStoreState as State } from "../../types"
-
 export type DefaultProps = {
     photo: HTMLImageElement | null
     canvasContext: {} | null
@@ -7,4 +5,4 @@ export type DefaultProps = {
     renderImage: (filters: string) => void
 }
 
-export type ReduxStoreState = State
+export type ReduxStoreState = DefaultProps

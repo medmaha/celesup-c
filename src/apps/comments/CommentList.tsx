@@ -12,14 +12,9 @@ export default function CommentList({
     getComments,
     updateComments,
 }: CommentListPropsInterface) {
-    const commentsListRef = useRef<HTMLDivElement>()
-
-    useLayoutEffect(() => {
-        console.log(commentsListRef.current.getBoundingClientRect())
-    }, [])
+    const commentsListRef = useRef<HTMLDivElement>(null)
 
     useEffect(() => {
-        console.log(commentsListRef.current.getBoundingClientRect())
         getComments()
     }, [getComments])
 
@@ -45,7 +40,7 @@ export default function CommentList({
                                 hasNext={!!comments[idx + 1] || !!hasNext}
                                 updateComments={updateComments}
                             />
-                            {comment.replies.length > 0 &&
+                            {comment.replies &&
                                 comment.replies.length > 0 &&
                                 renderComments(
                                     comment.replies,

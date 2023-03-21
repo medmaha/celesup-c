@@ -1,5 +1,5 @@
 //
-export default function postOpsReducer(state, action) {
+export default function postOpsReducer(state: any, action: any): any {
     switch (action.type) {
         case "TOGGLE_COMMENT":
             return {

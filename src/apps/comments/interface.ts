@@ -13,10 +13,6 @@ export type Comments = {
     data: CommentInterface[]
 }
 
-export interface CommentsWrapperPropsInterface {
-    post: Post
-}
-
 export interface CommentListPropsInterface {
     comments: Comments
     post: Post

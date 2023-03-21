@@ -1,4 +1,5 @@
-import * as Types from "./types/PostCreateDispatcher"
+import { CreateMediaForm } from "../../../redux/types"
+import { InitialConfig } from "./types"
 
 export function createFileFromDataUrl(
     dataURL: string,
@@ -25,20 +26,20 @@ export function createFileFromDataUrl(
         const reader = new FileReader()
         reader.onload = () => {}
         reader.readAsDataURL(file)
-        return resolve({ file, url: reader.result })
+        return resolve({ file, url: reader.result! })
     })
 }
 
-export function checkFormValidation(form: Types.Form): boolean {
+export function checkFormValidation(form: CreateMediaForm): boolean {
     let valid = false
     for (const field in form) {
         //
-        if (field === "caption" && form.caption.length > 4) valid = true
-        else if (field === "excerpt" && form.excerpt.length > 4) valid = true
+        if (field === "caption" && form.caption!.length > 4) valid = true
+        else if (field === "excerpt" && form.excerpt!.length > 4) valid = true
         //
-        else if (field === "video" && !!form.video) valid = true
-        else if (field === "audio" && !!form.audio) valid = true
-        else if (field === "picture" && !!form.picture) valid = true
+        // else if (field === "video" && !!form.media?.audio) valid = true
+        // else if (field === "audio" && !!form.media?.video) valid = true
+        else if (field === "picture" && !!form.media?.picture) valid = true
 
         if (valid) break
         continue
@@ -46,7 +47,7 @@ export function checkFormValidation(form: Types.Form): boolean {
     return valid
 }
 
-export const DefaultConfig: Types.InitialConfig = {
+export const DefaultConfig: InitialConfig = {
     seeBtn: false,
     editBtn: false,
     backBtn: false,

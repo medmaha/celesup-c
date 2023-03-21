@@ -31,7 +31,7 @@ export type Post = {
     caption?: string
     excerpt?: string
     hashtags?: string
-    created_at: string
+    created_at: string | undefined
     updated_at: string
     video: string
     music: string

@@ -1,10 +1,17 @@
 import React from "react"
+import { Post } from "../types/post"
 
-export default function Typography({ data }) {
+type Props = {
+    data: Post
+}
+
+export default function Typography({ data }: Props) {
     const texts = ["caption", "excerpt", "hashtags"]
-    let text: boolean
-    for (const i of texts) {
-        if (data[i]) {
+    let text: boolean = false
+
+    for (const i in texts) {
+        let key = i as "caption" | "excerpt" | "hashtags"
+        if (data[key]) {
             text = true
             break
         }

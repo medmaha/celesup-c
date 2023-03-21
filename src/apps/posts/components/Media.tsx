@@ -1,13 +1,19 @@
 import React from "react"
 import Image from "next/image"
+import { Post } from "../types/post"
 
-export default function Media({ data }) {
+type Props = {
+    data: Post
+}
+
+export default function Media({ data }: Props) {
     const files = ["picture", "video", "music", "file"]
 
-    let file: boolean
+    let file: boolean = false
 
     for (const i of files) {
-        if (data[i]) {
+        let key = i as "picture"
+        if (data[key]) {
             file = true
             break
         }
@@ -22,7 +28,7 @@ export default function Media({ data }) {
     )
 }
 
-function picture(data) {
+function picture(data: any) {
     return (
         <Image
             width={data.picture.width}
