@@ -1,4 +1,5 @@
 import internal from "stream"
+import Toast from "../components/UI/Toast"
 import { capitalize } from "./texts"
 
 type InitOptions = {
@@ -32,7 +33,8 @@ class CSToast {
 
         this.initOptions = data
         Object.entries(data).forEach(([key, value]) => {
-            this[key] = value
+            const cls = this as any
+            cls[key] = value
         })
     }
 
