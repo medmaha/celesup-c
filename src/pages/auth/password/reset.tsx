@@ -176,8 +176,9 @@ export default function ResetPassword({ linked, auid, stid }: any) {
                                     <>
                                         <strong>Create a new password</strong>
                                         <p className="text-sm mt-2">
-                                            Enter your user account's verified
-                                            email address and we will send you a
+                                            Enter your user account&apos;s
+                                            verified email address and we will
+                                            send you a
                                         </p>
                                     </>
                                 }
@@ -206,8 +207,8 @@ const Heading = () => (
     <>
         <b>Trouble logging in?</b>
         <p className="text-sm mt-2">
-            Enter your user account's verified email address and we will send
-            you a password reset link.
+            Enter your user account&apos;s verified email address and we will
+            send you a password reset link.
         </p>
     </>
 )
