@@ -32,16 +32,17 @@ export default function EmailSignup({ onSubmittedData }: EmailSignupProps) {
         // eslint-disable-next-line
     }, [data])
 
-    function handleFormSubmit(ev: any): void {
+    async function handleFormSubmit(ev: any, cleanUp: any) {
         ev.preventDefault()
         const form = new FormData(ev.currentTarget)
 
         form.append("initial", "1")
 
-        sendRequest({
+        await sendRequest({
             url: "/signup",
             data: form,
         })
+        cleanUp()
     }
     return (
         <div className="flex justify-center w-full mt-[50px]">

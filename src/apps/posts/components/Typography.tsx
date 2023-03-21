@@ -10,7 +10,7 @@ export default function Typography({ data }: Props) {
     let text: boolean = false
 
     for (const i in texts) {
-        let key = i as "caption" | "excerpt" | "hashtags"
+        let key = texts[i] as "caption" | "excerpt" | "hashtags"
         if (data[key]) {
             text = true
             break

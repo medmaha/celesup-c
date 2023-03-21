@@ -13,7 +13,7 @@ export default function ResetPassword({ linked, auid, stid }: any) {
     const [sent, setSent] = useState("")
     const router = useRouter()
 
-    function submitForm(ev: any) {
+    function submitForm(ev: any, cleanUp: any) {
         ev.preventDefault()
         const baseUrl = process.env.CELESUP_BACKEND_URL!
         const form = new FormData(ev.currentTarget)
@@ -82,6 +82,9 @@ export default function ResetPassword({ linked, auid, stid }: any) {
                         autoClose: 10000,
                     })
                 }
+            })
+            .finally(() => {
+                cleanUp()
             })
     }
 

@@ -39,7 +39,7 @@ export default function Login() {
         // eslint-disable-next-line
     }, [data])
 
-    async function submitForm(ev) {
+    async function submitForm(ev, cleanUp) {
         ev.preventDefault()
 
         const form = new FormData()
@@ -50,7 +50,7 @@ export default function Login() {
 
         // Todo --> filter formData
 
-        sendRequest({
+        await sendRequest({
             url: "/login",
             data: form,
             method: "POST",
@@ -58,6 +58,7 @@ export default function Login() {
                 "Content-type": "application/json",
             },
         })
+        cleanUp()
     }
     return (
         <div className="flex justify-center w-full mt-[60px]">

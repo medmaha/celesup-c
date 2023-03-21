@@ -13,6 +13,7 @@ export default function Media({ data }: Props) {
 
     for (const i of files) {
         let key = i as "picture"
+
         if (data[key]) {
             file = true
             break

@@ -55,7 +55,7 @@ export default function PasswordSignup({
         // eslint-disable-next-line
     }, [response])
 
-    function handleFormSubmit(ev: HTMLFormElement): void {
+    async function handleFormSubmit(ev: HTMLFormElement, cleanUp: any) {
         ev.preventDefault()
 
         const form = new FormData(ev.currentTarget)
@@ -89,13 +89,14 @@ export default function PasswordSignup({
             return { "cs-auth": h }
         })()
 
-        sendRequest({
+        await sendRequest({
             url: "/signup",
             data: form,
             headers: {
                 ...headers,
             },
         })
+        cleanUp()
     }
     return (
         <div className="flex justify-center w-full mt-[50px]">

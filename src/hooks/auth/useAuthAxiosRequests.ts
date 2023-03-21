@@ -29,7 +29,7 @@ export default function useAuthAxiosRequests(authUser: boolean = false) {
         }
     }, [state])
 
-    function sendRequest(options: RequestParams) {
+    async function sendRequest(options: RequestParams) {
         dispatchState({
             type: "REQUEST_START",
             payload: { ...state },
@@ -47,70 +47,73 @@ export default function useAuthAxiosRequests(authUser: boolean = false) {
 
         const headers = options.headers || {}
 
-        axios
-            .post(baseURl + options.url, options.data, {
-                headers,
-            })
-            .then((res) => {
-                const data = {} as any
+        return new Promise((resolve) => {
+            axios
+                .post(baseURl + options.url, options.data, {
+                    headers,
+                })
+                .then((res) => {
+                    const data = {} as any
 
-                const tokens = res.data.tokens
-                const session = res.data.session
+                    const tokens = res.data.tokens
+                    const session = res.data.session
 
-                if (tokens) {
-                    const accessToken = tokens.access
-                    const refreshToken = tokens.refresh
-                    localStorage.setItem("ata", accessToken)
-                    localStorage.setItem("atr", refreshToken)
+                    if (tokens) {
+                        const accessToken = tokens.access
+                        const refreshToken = tokens.refresh
+                        localStorage.setItem("ata", accessToken)
+                        localStorage.setItem("atr", refreshToken)
 
-                    const decodedUserData = jwtDecode(accessToken) as {
-                        user: AuthUser
+                        const decodedUserData = jwtDecode(accessToken) as {
+                            user: AuthUser
+                        }
+                        const encodedUserData = CSCryptography.encrypt(
+                            JSON.stringify(decodedUserData.user),
+                        )
+                        localStorage.setItem("a-usr", encodedUserData)
+                        data.tokens = tokens
                     }
-                    const encodedUserData = CSCryptography.encrypt(
-                        JSON.stringify(decodedUserData.user),
-                    )
-                    localStorage.setItem("a-usr", encodedUserData)
-                    data.tokens = tokens
-                }
-                if (session) {
-                    const encodedUserData = CSCryptography.encrypt(
-                        JSON.stringify(res.data),
-                    )
-                    localStorage.setItem("a-usr", encodedUserData)
-                    data.session = session
-                }
+                    if (session) {
+                        const encodedUserData = CSCryptography.encrypt(
+                            JSON.stringify(res.data),
+                        )
+                        localStorage.setItem("a-usr", encodedUserData)
+                        data.session = session
+                    }
 
-                if (data.session && data.tokens) {
+                    if (data.session && data.tokens) {
+                        dispatchState({
+                            type: "REQUEST_SUCCEED",
+                            payload: { ...state, data: data },
+                        })
+                        return
+                    }
+
                     dispatchState({
                         type: "REQUEST_SUCCEED",
-                        payload: { ...state, data: data },
+                        payload: { ...state, data: res.data },
                     })
-                    return
-                }
+                })
+                .catch((err) => {
+                    console.error(err.message)
 
-                dispatchState({
-                    type: "REQUEST_SUCCEED",
-                    payload: { ...state, data: res.data },
+                    const errMsg = getErrorMessageFromRequest(err)
+                    dispatchState({
+                        type: "REQUEST_FAILED",
+                        payload: { ...state, error: errMsg },
+                    })
+                    console.log(errMsg)
                 })
-            })
-            .catch((err) => {
-                console.error(err.message)
-
-                const errMsg = getErrorMessageFromRequest(err)
-                dispatchState({
-                    type: "REQUEST_FAILED",
-                    payload: { ...state, error: errMsg },
+                .finally(() => {
+                    dispatchState({
+                        type: "REQUEST_FINISH",
+                        payload: {
+                            ...state,
+                        },
+                    })
+                    resolve(1)
                 })
-                console.log(errMsg)
-            })
-            .finally(() => {
-                dispatchState({
-                    type: "REQUEST_FINISH",
-                    payload: {
-                        ...state,
-                    },
-                })
-            })
+        })
     }
 
     const { data, error, pending } = state
