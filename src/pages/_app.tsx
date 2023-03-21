@@ -17,6 +17,9 @@ export default function App({ Component, pageProps }: any) {
             cachedTimeout = setTimeout(() => {
                 setLoaded(true)
             }, 2500)
+        } else if (document.readyState !== "loading") {
+            if (cachedTimeout) clearTimeout(cachedTimeout)
+            setLoaded(true)
         }
     }, [])
 
