@@ -5,7 +5,7 @@ import { GlobalContext } from "../layouts/context"
 
 import FeedsContainer from "../feeds"
 
-export default function Index({ user: data, tokens }) {
+export default function Index({ user: data, tokens }: any) {
     const globalContext = useContext(GlobalContext)
     const router = useRouter()
 
