@@ -5,10 +5,9 @@ import useAuthenticate from "./hooks/useAuthenticate"
 
 import { Create } from "../apps/media"
 
-import * as T from "./types"
-
 import { AppContext } from "../main/global"
 import { GlobalContext, StoreDispatcher } from "../types/global"
+import { AppStore } from "../redux/types"
 
 const initialValues = { ...AppContext } as GlobalContext
 
@@ -19,9 +18,7 @@ interface Props {
 }
 
 function ContextProvider({ children }: Props): JSX.Element {
-    const { user, tokens, moods } = useSelector(
-        (state: T.AppStore) => state.main,
-    )
+    const { user, tokens, moods } = useSelector((state: AppStore) => state.main)
 
     const { authData, authPending } = useAuthenticate(user)
 

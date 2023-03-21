@@ -1,4 +1,3 @@
-import { User } from "../../types/user"
 import { GlobalContext } from "../../types/global"
 
 export type CreateMedia = {
