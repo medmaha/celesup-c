@@ -1,0 +1,41 @@
+// @config "../tailwind.config.js";
+
+@tailwind base;
+
+:root {
+    --primary: hsl(199, 89%, 45%);
+    --primary-light: hsl(199, 89%, 60%);
+    --primary-dark: hsl(199, 89%, 30%);
+
+    --secondary: hsl(173, 80%, 40%);
+    --secondary-light: hsl(173, 80%, 65%);
+    --secondary-dark: hsl(173, 80%, 25%);
+
+    --error: hsl(349, 89%, 45%);
+    --error-light: hsl(349, 89%, 60%);
+    --error-dark: hsl(349, 89%, 30%);
+
+    // surface
+
+    --cs-bg-opacity: 1;
+    --bg-primary: rgb(255, 255, 255, var(--cs-bg-opacity));
+    --bg-secondary: hsl(213, 27%, 95%);
+    --bg-tertiary: hsl(214, 32%, 91%);
+    --bg-emphasis: hsl(210, 20%, 65%);
+
+
+    --text-primary: hsl(216, 7%, 14%);
+    --text-secondary: hsl(216, 7%, 25%);
+    --text-tertiary: hsl(216, 7%, 45%);
+    --text-emphasis: rgb(176, 176, 239);
+
+}
+
+@import "./cs-utils.scss";
+@import "./celesup.scss";
+@import './globals.scss';
+@import './styles.scss';
+
+
+@tailwind components;
+@tailwind utilities;

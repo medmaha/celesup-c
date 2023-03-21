@@ -1,0 +1,350 @@
+:root {
+    --bg-color: white;
+    --toast-starts-from: 0;
+    --primary: #0284c7;
+    --secondary: #14b8a6;
+}
+
+
+nav {
+    // background: var(--bg-primary);
+
+    backdrop-filter: blur(5px);
+    z-index: 100;
+
+    .nav-links li {
+
+        transition: color 200ms ease-in-out;
+
+        button,
+        a {
+            padding: 2px;
+
+            :hover {
+                color: var(--primary);
+            }
+        }
+
+        a:hover,
+        button:hover {
+            svg {
+                fill: var(--primary);
+            }
+        }
+
+        &.active {
+            color: var(--primary);
+            opacity: .9;
+        }
+    }
+}
+
+// #-----------------------------------------------------------------------------------------------------------------------------------
+// ?---------------------------------------              TOAST LIBRARY              -------------------------------------------------
+// #-----------------------------------------------------------------------------------------------------------------------------------
+
+.toast-container {
+    --width: 350px;
+    position: fixed;
+    margin: 10px;
+    margin-top: 75px;
+    min-width: 200px;
+    max-width: var(--width);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    z-index: 1;
+    transition: height 350ms ease-in-out;
+
+    .toast {
+        display: block;
+        width: 100%;
+        max-width: var(--width);
+        padding: 1.2rem .8rem;
+        display: flex;
+        justify-content: center;
+        box-shadow: 0 0 5px 1px rgba($color: black, $alpha: 0.2);
+        text-align: center;
+        border-radius: .3rem;
+        position: relative;
+        overflow: hidden;
+        cursor: pointer;
+        margin: 0 .5rem;
+        background-color: var(--bg-tertiary);
+
+        &.can-close::after {
+            position: absolute;
+            content: '';
+            background: blue;
+            left: 0;
+            bottom: 0;
+            height: 3px;
+            width: calc(100% * var(--progress, 0.7));
+            background: linear-gradient(to right, var(--primary), var(--secondary), var(--primary), var(--secondary), var(--primary));
+            ;
+        }
+
+        &.invalid {
+            background-color: rgb(253, 69, 69);
+            color: #eee;
+        }
+    }
+
+
+    &[data-position^=top-] {
+        top: 0;
+    }
+
+    &[data-position^=bottom-] {
+        bottom: 0;
+    }
+
+    &[data-position$=-left] {
+        left: 0;
+
+        .toast {
+            transform: translateX(-110%);
+            --toast-starts-from: -110%;
+        }
+    }
+
+    &[data-position$=-right] {
+        right: 0;
+
+        .toast {
+            transform: translateX();
+            --toast-starts-from: 110%;
+        }
+    }
+
+    &[data-position$=-center] {
+        // left: 50%;
+        left: 50%;
+        transform: translateX(-55.5%);
+        // right: 50% // transform: translateX(-50%);
+    }
+
+    &[data-position=center] {
+        left: 50%;
+        bottom: calc(50% - 60px);
+        transform: translate(-50%);
+    }
+
+    // &[data-position] .toast {
+    // transition: transform 3s cubic-bezier(0, -0.25, .88, 1.2)
+    // }
+
+    &[data-position] .toast.show {
+        animation: show-toast 250ms ease-in-out 2ms 1 forwards;
+    }
+
+    &[data-position] .toast.remove {
+        animation: remove-toast 250ms ease-in-out 2ms 1 forwards;
+    }
+
+
+}
+
+
+@keyframes show-toast {
+    0% {
+        transform: translate(auto);
+    }
+
+    100% {
+        transform: translate(0, 0);
+    }
+}
+
+@keyframes remove-toast {
+    0% {
+        transform: translate(auto);
+    }
+
+    100% {
+        transform: translate(var(--toast-starts-from));
+    }
+}
+
+
+// --------------------------------------------------------------------------------------------------------------------------------------
+// ? --------------------------------------              Dropdown Component               ------------------------------------------------
+// ---------------------------------------------------------------------------------------------------------------------------------------
+.dropdown {
+    --starting-point-Xcor: 0;
+    --starting-point-Ycor: -5px;
+    --ending-point-Xcor: 0;
+    --ending-point-Ycor: 0;
+    --transition-duration: 200ms;
+    --TOP: calc(100% + 10px);
+    position: relative;
+    width: fit-content;
+    height: 100%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+
+
+    .dropdown-menu {
+        position: absolute;
+
+        color: var(--onSurfaceColor--);
+        outline: 2px solid var(--bg-tertiary);
+        box-shadow: var(--content-box-shadow);
+        background-color: var(--bg-secondary);
+        transform: translateY(var(--starting-point-Ycor));
+        transition: transform var(--transition-duration) ease-in-out,
+            opacity var(--transition-duration) ease-in-out;
+        width: max-content;
+        top: var(--TOP);
+        padding: 0.5rem 1rem;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        border-radius: 0.25rem;
+        opacity: 0;
+        pointer-events: none;
+
+        /* min-width: 100px; */
+        min-width: 250px;
+        min-height: 100px;
+        height: max-content;
+        max-height: calc(100vh - 200px);
+
+        display: flex;
+        flex-direction: column;
+        gap: 0.3rem;
+
+        max-height: calc(100vh - 150px);
+        overflow: hidden;
+        overflow-y: auto;
+
+        .dropdown-item {
+            display: grid;
+            grid-template-columns: repeat(2, max-content);
+            gap: 1rem;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            padding: 0.8rem 0.5rem;
+            font-size: 0.95rem;
+            border-radius: 1rem;
+            transition: color 250ms ease-in-out, transform 250ms ease-in-out;
+
+            &:active {
+                transform: scale(0.95);
+            }
+
+            &:hover {
+                :hover svg {
+                    fill: var(--primaryColor--);
+                }
+            }
+        }
+
+    }
+
+    &.active .dropdown-menu {
+        opacity: 1;
+        transform: translateY(var(--ending-point-Ycor));
+        pointer-events: auto;
+        z-index: 1;
+    }
+
+    .dropdown-menu svg {
+        width: 20px;
+        height: 20px;
+    }
+}
+
+
+
+
+// #-----------------------------------------------------------------------------------------------------------------------------------
+// ?---------------------------------------              Text Area              -------------------------------------------------
+// #-----------------------------------------------------------------------------------------------------------------------------------
+
+
+
+textarea {
+    &.cs-textarea {
+        padding-left: 0.5rem;
+        padding-top: 0.5rem;
+        padding-bottom: 0.5rem;
+        border-radius: 0.375rem;
+
+        resize: none;
+        overflow-y: hidden;
+        transition-duration: 150ms;
+        width: 100%;
+        background-color: var(--bg-tertiary);
+        border: none;
+        outline: 2px solid var(--bg-secondary);
+
+        &:focus {
+            outline-width: 3px;
+            outline-color: var(--primary-light);
+        }
+    }
+}
+
+
+
+/* CreatePost JSX */
+
+.create__post__container {
+    position: fixed;
+    background: rgba(0, 0, 0, 0.7);
+    top: 65px;
+    left: 0;
+    width: 100vw;
+    height: 101vh;
+    display: flex;
+    justify-content: center;
+}
+
+.post__form__body__image {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+    max-height: 350px;
+
+    overflow: hidden;
+    overflow-y: auto;
+}
+
+.cursor-pointer>* {
+    cursor: pointer;
+}
+
+.cursor-pointer>*>* {
+    cursor: pointer;
+}
+
+@media (max-width: 600px) {
+    .create__post__container {
+        padding-top: 1rem;
+    }
+
+    .create__post__container .post__modal {
+        width: 550px;
+        min-height: fit-content;
+        max-height: 500px;
+        overflow: auto;
+    }
+}
+
+/* Preview */
+
+.preview-field {
+    border: none;
+    outline: none;
+    box-shadow: none;
+    padding: 5px 0;
+}
+
+.preview-field:focus {
+    border: none;
+    outline: none;
+    box-shadow: none;
+}

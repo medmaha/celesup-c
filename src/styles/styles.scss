@@ -1,0 +1,87 @@
+.animate-in {
+    opacity: 0;
+    animation: animate-in 2s linear 1 forwards
+}
+
+.animate-modal-open {
+    opacity: 0;
+    animation: animate-modal-open 300ms linear 1 forwards;
+}
+
+@keyframes animate-modal-open {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes animate-in {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+
+svg {
+    fill: currentColor;
+}
+
+button {
+    /* transition: transform 100ms; */
+    opacity: .9;
+}
+
+button:not(:disabled):hover {
+    opacity: 1;
+}
+
+button:not(:disabled):active {
+    transform: scale(.985);
+}
+
+
+input:focus {
+    outline-color: var(--primary);
+}
+
+@supports(scrollbar-width: thin) {
+    * {
+        scrollbar-width: thin;
+        scrollbar-color: rgb(128, 125, 125);
+        scrollbar-track-color: hsl(215, 28%, 13%);
+    }
+}
+
+::-webkit-scrollbar {
+    width: 7px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: rgb(128, 125, 125)
+}
+
+::-webkit-scrollbar-track {
+    background-color: hsl(215, 28%, 13%)
+}
+
+#composeCreate .input__ {
+    cursor: pointer;
+    color: rgba($color: black, $alpha: 0.5);
+}
+
+#composeCreate .input__:hover {
+    box-shadow: 0 0 5px rgba($color: black, $alpha: 0.1);
+}
+
+#composeCreate input::placeholder {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}

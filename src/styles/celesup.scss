@@ -1,0 +1,135 @@
+// ! ----- PRIMARY Text and background color -----
+.text-primary {
+    color: var(--primary);
+}
+
+.text-primary-light {
+    color: var(--primary-light);
+}
+
+.text-primary-dark {
+    color: var(--primary-dark);
+}
+
+.bg-primary {
+    background-color: var(--primary);
+}
+
+.bg-primary-light {
+    background-color: var(--primary-light);
+}
+
+.bg-primary-dark {
+    background-color: var(--primary-dark);
+}
+
+// ------
+
+
+// ! ----- SECONDARY Text and background color -----
+.text-secondary {
+    color: var(--secondary);
+}
+
+.text-secondary-light {
+    color: var(--secondary-light);
+}
+
+.text-secondary-dark {
+    color: var(--secondary-dark);
+}
+
+.bg-secondary {
+    background-color: var(--secondary);
+}
+
+.bg-secondary-light {
+    background-color: var(--secondary-light);
+}
+
+.bg-secondary-dark {
+    background-color: var(--secondary-dark);
+}
+
+// --------
+
+
+// ! ----- ERROR Text and background color -----
+.text-error {
+    color: var(--error);
+}
+
+.text-error-light {
+    color: var(--error-light);
+}
+
+.text-error-dark {
+    color: var(--error-dark);
+}
+
+.bg-error {
+    background-color: var(--error);
+}
+
+.bg-error-light {
+    background-color: var(--error-light);
+}
+
+.bg-error-dark {
+    background-color: var(--error-dark);
+}
+
+//-----
+
+
+// ! ----- VARIANTS of Text color -----
+.primary-text {
+    color: var(--text-primary)
+}
+
+.secondary-text {
+    color: var(--text-secondary)
+}
+
+.tertiary-text {
+    color: var(--text-tertiary)
+}
+
+.emphasis-text {
+    color: var(--text-emphasis)
+}
+
+
+// ! ----- VARIANTS of Background color -----
+.primary-bg {
+    background: var(--bg-primary);
+}
+
+.secondary-bg {
+    background: var(--bg-secondary);
+}
+
+.tertiary-bg {
+    background: var(--bg-tertiary);
+}
+
+.emphasis-bg {
+    background: var(--bg-emphasis);
+}
+
+
+html.dark {
+    --bg-primary: hsl(222, 47%, 10%);
+    --bg-secondary: hsl(215, 25%, 27%);
+    --bg-tertiary: hsl(217, 33%, 17%);
+
+    --text-primary: hsl(214, 32%, 91%);
+    --text-secondary: hsl(214, 32%, 75%);
+    --text-tertiary: hsl(214, 32%, 60%);
+}
+
+
+
+
+
+// ? utility classes

@@ -1,0 +1,167 @@
+.cs-input {
+    // @apply outline-bg_light_muted outline-2;
+    border: 0;
+    border-radius: .5rem;
+    padding: .25rem .25rem;
+    background: var(--bg-primary);
+    outline: 2px solid var(--bg-tertiary);
+    transition: outline 100ms ease-in-out;
+
+    &:focus {
+        outline-width: 3px;
+        outline-color: var(--primary-light);
+    }
+}
+
+.cs-button {
+    background: var(--primary);
+    color: #fff;
+    padding: .25rem 1rem;
+}
+
+.cs-border {
+    border-style: solid;
+    border-color: var(--bg-tertiary);
+}
+
+.cs-outline {
+    outline-style: solid;
+    outline-color: var(--bg-tertiary);
+    outline-width: 2px;
+}
+
+
+.cs-card {
+    background-color: var(--bg-secondary);
+    padding: 1rem .5rem;
+    border-radius: .5rem;
+}
+
+.cs-text-truncate {
+    display: block;
+    overflow: hidden;
+    max-height: 3rem;
+    -webkit-line-clamp: 3;
+    display: flex;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+    white-space: normal;
+}
+
+.cs-interaction-btn {
+    cursor: pointer;
+    border-radius: 100%;
+    transition-duration: 100ms;
+
+    svg {
+        transition: fill 100ms;
+        opacity: .8;
+    }
+
+    &:hover {
+        svg {
+            opacity: 1;
+            fill: inherit;
+        }
+    }
+}
+
+
+.cs-modal {
+    transform-origin: center;
+    transform: scale(0);
+    transition: transform 300ms ease-in-out
+}
+
+.cs-modal.open {
+    animation: cs-modal-open 300ms linear 1 forwards;
+}
+
+.cs-modal.close {
+    animation: cs-modal-close 300ms linear 1 forwards;
+}
+
+@keyframes cs-modal-open {
+    from {
+        transform: scale(0);
+    }
+
+    to {
+        transform: scale(1);
+    }
+}
+
+@keyframes cs-modal-close {
+    from {
+        transform: scale(1);
+    }
+
+    to {
+        transform: scale(0);
+    }
+}
+
+.cs-divider {
+    display: inline-block;
+    width: 100%;
+    height: 1px;
+    margin: .25rem 0;
+    background-color: var(--bg-tertiary);
+}
+
+.cs-user-card {
+    animation-name: card-pulse;
+    animation-duration: 500ms;
+    animation-timing-function: ease;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+}
+
+.cs-pulse-text {
+    animation-name: text-pulse;
+    animation-duration: 1000ms;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+    animation-fill-mode: forwards;
+}
+
+
+.cs-shake-card {
+    animation-name: shake-card;
+    animation-duration: 300ms;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: 2;
+    animation-fill-mode: backwards;
+    outline: 3px solid var(--primary-light);
+}
+
+@keyframes shake-card {
+    0% {
+        transform: scale(.98);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes card-pulse {
+    0% {
+        opacity: 0%;
+    }
+
+    100% {
+        opacity: 100%;
+    }
+}
+
+@keyframes text-pulse {
+    0% {
+        opacity: 50%;
+    }
+
+    100% {
+        opacity: 100%;
+    }
+}
