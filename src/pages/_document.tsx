@@ -23,7 +23,6 @@ class MyDocument extends Document {
         return (
             <Html className="dark">
                 <Head>
-                    <title>Celesup</title>
                     <link rel="shortcut icon" href="/favicon.ico" />
                 </Head>
                 <body className="primary-bg primary-text">

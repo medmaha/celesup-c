@@ -114,7 +114,7 @@ export default function Interactions({
                 iconName={state.client.liked ? "heart" : "heartRegular"}
                 color={"red"}
                 callback={likePost}
-                children={<></>}
+                content={<></>}
                 stat={state.stats.likesCount}
                 iconClass={state.client.liked ? "fill-red-400" : ""}
             />
@@ -128,7 +128,7 @@ export default function Interactions({
                         payload: { data: true },
                     })
                 }}
-                children={<></>}
+                content={<></>}
                 stat={state.stats.commentsCount}
                 iconClass={state.client.commented ? "fill-blue-400" : ""}
             />
@@ -147,7 +147,7 @@ export default function Interactions({
                         },
                     })
                 }}
-                children={
+                content={
                     <>
                         {state.actions?.repost && (
                             <RepostModal
@@ -179,7 +179,7 @@ export default function Interactions({
                 iconClass={state.client.saved ? "fill-yellow-400" : ""}
                 iconName="bookmark"
                 stat={state.stats.savedCount}
-                children={<></>}
+                content={<></>}
             />
         </div>
     )
@@ -191,7 +191,7 @@ type Button = {
     color: string
     iconClass: string
     stat: number
-    children: JSX.Element
+    content: JSX.Element
     post_id?: string
 }
 
@@ -201,7 +201,7 @@ function Button({
     color,
     iconClass,
     stat,
-    children,
+    content,
 }: Button) {
     return (
         <div className="flex flex-col justify-center items-center relative">
@@ -241,7 +241,7 @@ function Button({
                 />
             </button>
             <span className=" leading-none h-[1rem]">{stat}</span>
-            {children}
+            {content}
         </div>
     )
 }

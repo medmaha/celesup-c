@@ -74,8 +74,8 @@ export default function RepostModal({ setRepost, post_id, author }: any) {
                                     </button>
                                     <p className="text-sm tracking-wide tertiary-text">
                                         Create a new Post with{" "}
-                                        {CSTypography.capitalize(author)}'s post
-                                        attached
+                                        {CSTypography.capitalize(author)}&apos;s
+                                        post attached
                                     </p>
                                 </div>
                             </div>
@@ -101,8 +101,8 @@ export default function RepostModal({ setRepost, post_id, author }: any) {
                                     </button>
                                     <p className="text-sm tracking-wide tertiary-text">
                                         Instantly bring{" "}
-                                        {CSTypography.capitalize(author)}'s post
-                                        to other's feeds
+                                        {CSTypography.capitalize(author)}&apos;s
+                                        post to other&apos;s feeds
                                     </p>
                                 </div>
                             </div>
