@@ -15,7 +15,7 @@ export default function Compose() {
         >
             <div className="flex justify-around gap-4 sm:gap-2 items-center w-full">
                 <Image
-                    src="/images/avatar.png"
+                    src="/images/default-avatar.png"
                     width={50}
                     height={50}
                     alt="compose"
