@@ -5,6 +5,7 @@ import Button from "./Button"
 let hoveringTimeout: any
 
 import { Author } from "../../apps/globalInterface"
+import Link from "next/link"
 
 type UserCard = {
     link?: boolean
@@ -47,13 +48,14 @@ export default function UserCard({ link, btnElement, author }: UserCard) {
     return (
         <div ref={buttonRef} className={`inline-flex relative`}>
             {displayModal && <Card author={author} />}
-            <button
+            <Link
+                href={"/" + author.username}
                 className={`cursor-pointer transition ${
                     link ? "text-primary" : ""
                 }`}
             >
                 {btnElement}
-            </button>
+            </Link>
         </div>
     )
 }
@@ -99,7 +101,10 @@ function Card({ author }: any) {
             <div className="w-full h-full secondary-bg p-3 rounded-md cs-outline outline-1">
                 <div className="flex justify-between items-center">
                     <div className="min-w-max">
-                        <div className="rounded-full outline-2 cs-outline w-[70px] h-[70px]">
+                        <Link
+                            href={"/" + author.username}
+                            className="inline-block rounded-full outline-2 cs-outline w-[70px] h-[70px]"
+                        >
                             <Image
                                 className="rounded-full w-full h-full"
                                 width={70}
@@ -108,22 +113,25 @@ function Card({ author }: any) {
                                 src={user.avatar}
                                 alt="user avatar"
                             />
-                        </div>
+                        </Link>
                     </div>
                     <div className="">
                         <Button text={`+ Follow`} className="rounded-[1rem]" />
                     </div>
                 </div>
                 <div className="flex justify-between items-center my-2">
-                    <div className="m-0 p-0 leading-[1rem] flex flex-col">
-                        <h2 className="primary-text m-0 bold-bold tracking-wider">
+                    <Link
+                        href={"/" + author.username}
+                        className="m-0 p-0 leading-[1rem] flex flex-col"
+                    >
+                        <h2 className="primary-text bold-bold tracking-wider">
                             {/* // todo */}
-                            Mahamed Toure
+                            {author.name}
                         </h2>
-                        <p className="truncate m-0 tracking-wide text-primary-light leading-[1rem]">
+                        <p className="truncate tracking-wide text-primary-light leading-[1rem]">
                             @{user.username.toLowerCase()}
                         </p>
-                    </div>
+                    </Link>
                 </div>
                 <div className="">
                     {/* // todo */}

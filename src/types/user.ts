@@ -4,6 +4,20 @@ export type User = {
     avatar: string
     username: string
 }
+export type AuthUserProfile = {
+    id: string
+    avatar: string
+    name: string | null
+    city: string | null
+    date_joined: string
+    account_type: string
+    gender: string | null
+    email_privacy: boolean
+    username: string | null
+    cover_img: string | null
+    biography: string | null
+    public_email: string | null
+}
 
 export type AuthUser = {
     id: string

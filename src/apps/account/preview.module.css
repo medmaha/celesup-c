@@ -1,0 +1,25 @@
+.animate-block {
+    position: relative;
+    background-color: var(--primary-light);
+}
+
+.animate-block::before {
+    animation: block 150ms ease-out infinite;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    transform: translateX(-200%);
+    background-color: black;
+}
+
+
+@keyframes block {
+    0% {
+        transform: translateX(-200%);
+    }
+
+    100% {
+        transform: translateX(100%);
+    }
+}

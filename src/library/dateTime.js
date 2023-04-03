@@ -91,10 +91,10 @@ export default class CSDateTime {
 
                     // Last Month
                 } else {
-                    formattedDate = `${this.getMonth()} ${this.getDate()}`
+                    formattedDate = `${this.getDay()} ${this.getDate()} ${this.getMonth()} ${this.date.getFullYear()}`
                 }
             } else {
-                formattedDate = `${this.date.getFullYear()} ${this.getMonth()}`
+                formattedDate = `${this.getDate()} ${this.getMonth()} ${this.date.getFullYear()}`
             }
             return formattedDate
         }

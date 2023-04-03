@@ -7,6 +7,7 @@ import { updateAuthUser, updateMoods } from "../../redux/app"
 import { GlobalContext } from "../../layouts/context"
 import { GlobalContext as GlobalAppContext } from "../../types/global"
 import { useRouter } from "next/router"
+import Link from "next/link"
 
 export default function Profile() {
     const globalContext = useContext(GlobalContext)
@@ -48,7 +49,12 @@ export default function Profile() {
                     )}
                 </div>
             }
-            items={dropdownItems(globalContext, onlineStatus, logoutUser)}
+            items={dropdownItems(
+                globalContext,
+                onlineStatus,
+                logoutUser,
+                router,
+            )}
             identifier="navbarDropdown"
             options={{
                 right: "0",
@@ -67,6 +73,7 @@ const dropdownItems = (
     globalContext: GlobalAppContext,
     onlineStatus: boolean,
     logoutUser: any,
+    router: any,
 ): Items[] => {
     return [
         // { text: 'Profile', icon:<h1>Hello</>},
@@ -93,12 +100,14 @@ const dropdownItems = (
                     <span className="d-block center font-sm">
                         {globalContext.user.name || globalContext.user.username}
                     </span>
-                    <h3>
+                    <span>
                         <strong>{globalContext.user.name}</strong>
-                    </h3>
+                    </span>
                 </div>
             ),
-            // onClicked: userAccount,
+            onClicked: () => {
+                router.push(`/${globalContext.user.username}`)
+            },
         },
         {
             text: "Status",

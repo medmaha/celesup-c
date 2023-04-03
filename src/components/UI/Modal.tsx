@@ -91,12 +91,11 @@ function ModalContent({
     return (
         <div
             ref={modalRef}
-            className="fixed inset-0 flex items-center justify-center z-10"
+            className="fixed inset-0 flex items-center justify-center z-[100] top-0"
         >
-            <div className="bg-transparent backdrop-blur-[3px] w-full p-3 h-full flex items-center justify-center">
+            <div className="bg-transparent backdrop-blur-[3px] w-full p-3 pt-[65px] h-full flex items-center justify-center">
                 <div
                     id="cs-modal"
-                    style={{ maxHeight: "calc(100vh - 10px)" }}
                     className="cs-modal w-full h-max bg-0 p-0 max-w-[500px] rounded-lg secondary-bg shadow shadow-black"
                 >
                     <div className="">
@@ -126,10 +125,9 @@ function ModalContent({
                         )}
                         <div
                             data-header
-                            className={`px-4 min-h-[250px] overflow-y-auto h-max overflow-x-hidden relative ${
+                            className={`px-4 relative ${
                                 !showLogo ? "mt-1" : ""
                             }`}
-                            style={{ maxHeight: "calc(100vh - 50spx)" }}
                         >
                             <div
                                 className="border-b border-1 cs-border bg-transparent
@@ -188,7 +186,9 @@ function ModalContent({
                                 )}
                             </div>
 
-                            <div className="">{content || jsxContent}</div>
+                            <div className="max-h-[calc(100vh-75px-50px)] overflow-hidden overflow-y-hidden">
+                                {content || jsxContent}
+                            </div>
                         </div>
                         {jsxFooterContent && (
                             <div

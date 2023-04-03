@@ -39,3 +39,40 @@
 
 @tailwind components;
 @tailwind utilities;
+
+
+.animate-block {
+    position: relative;
+    background-color: var(--bg-secondary);
+    overflow: hidden;
+}
+
+.animate-block::before {
+    animation: block 1500ms ease-out infinite forwards;
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transform: translateX(-200%);
+    // background-color: black;
+    // background-color: var(--secondary);
+    // opacity: .2;
+    // visibility: hidden;
+    opacity: .7;
+    background: linear-gradient(to left, var(--bg-secondary), var(--bg-tertiary), var(--bg-secondary));
+}
+
+
+@keyframes block {
+    0% {
+        // visibility: hidden;
+        transform: translateX(-200%);
+    }
+
+    100% {
+        // visibility: visible;
+        transform: translateX(100%);
+    }
+}

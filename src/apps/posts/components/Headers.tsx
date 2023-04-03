@@ -1,3 +1,4 @@
+import Link from "next/link"
 import React from "react"
 import Icon from "../../../components/UI/Icon"
 import UserCard from "../../../components/UI/UserCard"
@@ -8,19 +9,22 @@ export default function Headers({ data, isChild }: any) {
         <div className="flex mobile:flex-wrap gap-2 justify-between items-start w-full">
             <div className="flex flex-col">
                 <div className="flex items-center gap-2">
-                    <h3 className="tracking-wide font-semibold min-w-fit">
+                    <h2 className="tracking-wide font-semibold min-w-fit">
                         <UserCard
                             btnElement={
-                                <span className="hover:underline pb-[2px]">
+                                <Link
+                                    href={"/" + data.author.username}
+                                    className="hover:underline pb-[2px]"
+                                >
                                     {data.author.name ||
                                         CSTypography.capitalize(
                                             data.author.username,
                                         )}
-                                </span>
+                                </Link>
                             }
                             author={data.author}
                         />
-                    </h3>
+                    </h2>
 
                     <div className="flex items-center secondary-text gap-1 min-w-fit">
                         {data.child ? (
