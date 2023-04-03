@@ -6,11 +6,11 @@ import useAuthAxiosRequests from "../../../hooks/auth/useAuthAxiosRequests"
 import { updateAuthUser } from "../../../redux/app"
 import jwtDecode from "jwt-decode"
 import Popup from "../../../components/UI/Popup"
+import { AuthUser } from "../../../types/user"
 
 export default function Login() {
     const globalContext = useContext(GlobalContext)
-    const [developmentNote, setDevelopmentNote] =
-        (useState < null) | (string > null)
+    const [developmentNote, setDevelopmentNote] = useState<null | string>(null)
 
     const router = useRouter()
     const { data, sendRequest } = useAuthAxiosRequests()
@@ -35,17 +35,14 @@ export default function Login() {
     useLayoutEffect(() => {
         if (data) {
             const tokens = data.tokens
-            const session = data.session
 
             let user
             if (tokens) {
-                const decodedToken = jwtDecode(tokens.access)
+                const decodedToken: { user: AuthUser } = jwtDecode(
+                    tokens.access,
+                )
                 user = decodedToken.user
-            }
-            if (session) {
-                user = session.user
-            }
-            if (!tokens && !session) {
+            } else {
                 alert("Something terribly went wrong")
                 user = null
             }
@@ -59,12 +56,12 @@ export default function Login() {
         // eslint-disable-next-line
     }, [data])
 
-    async function submitForm(ev, cleanUp) {
+    async function submitForm(ev: any, cleanUp: any) {
         ev.preventDefault()
 
         const form = new FormData()
 
-        ev.currentTarget.querySelectorAll("input").forEach((element) => {
+        ev.currentTarget.querySelectorAll("input").forEach((element: any) => {
             form.append(element.name, element.value)
         })
 
@@ -73,7 +70,6 @@ export default function Login() {
         await sendRequest({
             url: "/login",
             data: form,
-            method: "POST",
             headers: {
                 "Content-type": "application/json",
             },
@@ -86,7 +82,7 @@ export default function Login() {
                 <Popup
                     content={developmentNote}
                     onConfirm={(_, cb) => {
-                        localStorage.setItem("notify-developmentNote")
+                        localStorage.setItem("notify-developmentNote", "true")
                         setDevelopmentNote(null)
                     }}
                     onClose={() => {

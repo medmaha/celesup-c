@@ -1,4 +1,4 @@
-import { AuthUser } from "../../types/user"
+import { AuthTokens, AuthUser } from "../../types/user"
 
 export interface AuthHookState {
     data: Response | null
@@ -18,6 +18,10 @@ export interface Response {
     credentials?: CredentialsResponse
     "cs-auth"?: string
     "cs-auth-val"?: string
+    tokens: {
+        access: string
+        refresh: string
+    }
 }
 
 // prettier-ignore
