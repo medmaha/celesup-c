@@ -1,6 +1,13 @@
 import React, { useEffect, useRef, useState } from "react"
 
-export default function Popup(props: any) {
+type Props = {
+    autoOpen: boolean
+    onClose: () => void
+    onConfirm: (config: any, callback: (config: any) => void) => void
+    content: string
+}
+
+export default function Popup(props: Props) {
     const popupRef = useRef(document.createElement("div"))
     const [config, updateConfig] = useState({ ...props, popupRef })
 
