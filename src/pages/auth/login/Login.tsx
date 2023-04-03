@@ -25,12 +25,12 @@ export default function Login() {
                     <h2 className="font-semibold">Dear Client</h2>
                     <br />
                     <p className="text-center tracking-wide mb-4">
-                        Welcome to Celesup Platform! If you're new to our
+                        Welcome to Celesup Platform! If you&apos;re new to our
                         platform, you can easily create a guest account by
                         logging in with any email address that has a domain
                         ending with{" "}
                         <strong title="<username>@guest.com">
-                            "@guest.com"
+                            &quot;@guest.com&quot;
                         </strong>{" "}
                         and using any password. If you prefer to create a full
                         account, you can sign up easily with your email and a
