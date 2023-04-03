@@ -10,7 +10,9 @@ import { AuthUser } from "../../../types/user"
 
 export default function Login() {
     const globalContext = useContext(GlobalContext)
-    const [developmentNote, setDevelopmentNote] = useState<null | string>(null)
+    const [developmentNote, setDevelopmentNote] = useState<null | JSX.Element>(
+        null,
+    )
 
     const router = useRouter()
     const { data, sendRequest } = useAuthAxiosRequests()
@@ -18,17 +20,25 @@ export default function Login() {
     useLayoutEffect(() => {
         const notified = localStorage.getItem("notify-developmentNote")
         if (!notified) {
-            setDevelopmentNote(`
-                Dear Client,
-
-                Welcome to Celesup Platform! If you're new to our platform,
-                you can easily create a guest account by logging in with any
-                email address that has a domain ending with "@guest.com" and using any password.
-                If you prefer to create a full account, you can sign up easily with your email and a secure password.
-
-                Thank you for choosing Celesup Platform.
-
-            `)
+            setDevelopmentNote(
+                <>
+                    <h2 className="font-semibold">Dear Client</h2>
+                    <br />
+                    <p className="text-center tracking-wide mb-4">
+                        Welcome to Celesup Platform! If you're new to our
+                        platform, you can easily create a guest account by
+                        logging in with any email address that has a domain
+                        ending with{" "}
+                        <strong title="<username>@guest.com">
+                            "@guest.com"
+                        </strong>{" "}
+                        and using any password. If you prefer to create a full
+                        account, you can sign up easily with your email and a
+                        secure password.
+                    </p>
+                    <>Thank you for choosing Celesup Platform.</>
+                </>,
+            )
         }
     }, [])
 
@@ -116,7 +126,7 @@ const fields = [
     },
     {
         type: "password",
-        name: "password",
+        name: "current-password",
         placeholder: "Password",
     },
 ]

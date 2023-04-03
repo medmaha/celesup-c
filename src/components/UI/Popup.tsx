@@ -4,7 +4,7 @@ type Props = {
     autoOpen: boolean
     onClose: () => void
     onConfirm: (config: any, callback: (config: any) => void) => void
-    content: string
+    content: string | JSX.Element
 }
 
 export default function Popup(props: Props) {
@@ -23,7 +23,7 @@ export default function Popup(props: Props) {
             {autoOpen && (
                 <div
                     ref={popupRef}
-                    className="fixed inset-0 flex items-center justify-center p-6"
+                    className="fixed inset-0 flex items-center justify-center p-6 z-[50]"
                 >
                     <div className="bg-slate-300 w-full max-w-[400px] rounded-lg p-6 flex flex-col gap-4 outline-2 outline-red-400 outline">
                         <p className="max-w-[350px] text-slate-800 text-center tracking-wide">

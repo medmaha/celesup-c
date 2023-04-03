@@ -126,12 +126,12 @@ const Heading = () => (
 const fields = [
     {
         type: "text",
-        name: "username",
+        name: "full-name",
         placeholder: "Username",
     },
     {
         type: "password",
-        name: "password",
+        name: "current-password",
         placeholder: "Password",
     },
 ]
