@@ -19,8 +19,8 @@ export default function Profile({ data }: Props) {
         <>
             {update && (
                 <UpdateProfile
-                    updateProfile={() => {}}
                     profile={profile}
+                    updateProfile={setProfile}
                     openUpdateModal={toggleUpdate}
                 />
             )}
