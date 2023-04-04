@@ -131,7 +131,7 @@ const fields = [
     },
     {
         type: "password",
-        name: "current-password",
+        name: "password",
         placeholder: "password",
     },
     {
