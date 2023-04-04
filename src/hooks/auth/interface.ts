@@ -34,6 +34,6 @@ export interface AuthHookAction {
 
 export interface RequestParams {
     url: string
-    data?: FormData
+    data?: FormData | { [x: string]: string }
     headers?: { [key: string]: string }
 }

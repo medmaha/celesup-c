@@ -102,8 +102,8 @@ export default function PostContainer() {
                 })
             })
             .catch((err: any) => {
-                console.log(err.message)
                 const errMsg = getErrorMessageFromRequest(err)
+                console.error(errMsg)
                 new CSToast({
                     canClose: false,
                     text: errMsg,

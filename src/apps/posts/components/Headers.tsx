@@ -12,15 +12,12 @@ export default function Headers({ data, isChild }: any) {
                     <h2 className="tracking-wide font-semibold min-w-fit">
                         <UserCard
                             btnElement={
-                                <Link
-                                    href={"/" + data.author.username}
-                                    className="hover:underline pb-[2px]"
-                                >
+                                <span className="hover:underline pb-[2px] inline-block">
                                     {data.author.name ||
                                         CSTypography.capitalize(
                                             data.author.username,
                                         )}
-                                </Link>
+                                </span>
                             }
                             author={data.author}
                         />

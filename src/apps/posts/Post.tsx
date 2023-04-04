@@ -20,10 +20,6 @@ export default function Post({ data }: Props) {
     const [post, setPostData] = useState({
         ...data,
         created_at: new CSDateTime(data.created_at).format(),
-        // child: {
-        //     ...data.child,
-
-        // },
     })
     const [options, dispatchPostReducer] = useReducer(postOpsReducer, {})
 
@@ -49,10 +45,9 @@ export default function Post({ data }: Props) {
 
         try {
             const { data } = await celesupBackendApi[method](url, form)
-            console.table(data)
             await updatePostData(data)
-        } catch (error) {
-            console.error(error)
+        } catch (error: any) {
+            console.error(error.message)
             setPostData({
                 ...post,
                 created_at: new CSDateTime(data.created_at).format(),
@@ -60,18 +55,6 @@ export default function Post({ data }: Props) {
         }
 
         return true
-        // postWS.send(JSON.stringify({ type: "POST_LIKE" }))
-
-        // if (postData.author.id !== context.user.id) {
-        //     context.webSocketMaster.send(
-        //         JSON.stringify({
-        //             type: "NOTIFY_USER",
-        //             payload: {
-        //                 user_id: postData.author.id,
-        //             },
-        //         }),
-        //     )
-        // }
     }
 
     async function handlePostLike() {

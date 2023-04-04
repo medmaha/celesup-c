@@ -66,6 +66,7 @@ function Form(props: Props): JSX.Element {
                     togglePending(true)
                     onSubmit(ev, () => {
                         formRef.current?.reset()
+                        // Todo reset only the password field
                         togglePending(false)
                     })
                 }}

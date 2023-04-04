@@ -155,9 +155,8 @@ function ModalBody({ post_id, submit, setSubmitDialog }: any) {
                     post_id,
                     excerpt,
                 })
-                console.log(data)
             } catch (error: any) {
-                console.log(error.message)
+                console.error(error.message)
             }
         }
     }

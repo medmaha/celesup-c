@@ -31,7 +31,7 @@ function Navbar() {
     }
 
     return (
-        <nav className="bg-opacity-20 h-[65px] fixed top-0 left-0 w-full px-1 shadow-md shadow-grey-500/50 dark:shadow-slate-800/50">
+        <nav className="bg-[var(--bg-primary)] bg-opacity-30 backdrop-blur-[5px] z-[100] h-[65px] sticky top-0 w-full px-1 shadow-md shadow-grey-500/50 dark:shadow-slate-800/50">
             <div className="flex gap-[1rem] justify-between px-1 items-center mx-auto h-full lg:w-[90%]">
                 {/* brand and searchBar*/}
                 <div className="inline-flex flex-1 h-full items-center gap-[1rem] justify-between">

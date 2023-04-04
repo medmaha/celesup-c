@@ -31,7 +31,7 @@ export default function PhotoEditor({ setConfig }: any) {
         if (pictureSRC) {
             img.addEventListener("load", imageLoaded)
             img.src = pictureSRC
-            const prev = pages.current
+            const prev = "FORM"
             const current = "PHOTO"
             const next = "PREVIEW"
 

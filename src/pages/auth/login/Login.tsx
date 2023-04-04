@@ -69,11 +69,13 @@ export default function Login() {
     async function submitForm(ev: any, cleanUp: any) {
         ev.preventDefault()
 
-        const form = new FormData()
+        const form = {} as { [x: string]: string }
 
-        ev.currentTarget.querySelectorAll("input").forEach((element: any) => {
-            form.append(element.name, element.value)
-        })
+        ev.currentTarget
+            .querySelectorAll("input")
+            .forEach((element: HTMLInputElement) => {
+                form[element.name] = element.value
+            })
 
         // Todo --> filter formData
 

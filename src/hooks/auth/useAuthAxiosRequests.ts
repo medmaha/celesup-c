@@ -102,7 +102,7 @@ export default function useAuthAxiosRequests(authUser: boolean = false) {
                         type: "REQUEST_FAILED",
                         payload: { ...state, error: errMsg },
                     })
-                    console.log(errMsg)
+                    console.error(errMsg)
                 })
                 .finally(() => {
                     dispatchState({
