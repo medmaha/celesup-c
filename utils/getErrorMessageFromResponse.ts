@@ -16,6 +16,7 @@ export function getErrorMessageFromRequest(err: ERROR): string {
     } else if (err.response?.data.detail) {
         return err.response?.data.message
     } else if (err.request) {
+        console.error(err.message)
         return "An unintended error occurred"
     } else {
         return err.message
