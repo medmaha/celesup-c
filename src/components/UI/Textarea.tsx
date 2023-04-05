@@ -79,6 +79,7 @@ export default function Textarea(props: any) {
                 className={`cs-textarea leading-5 transition ease-in-out sm:text-sm ${
                     props.icon ? "pr-[2.5rem]" : "pr-[.5rem]"
                 }`}
+                value={props.value || ""}
                 placeholder={props.placeholder}
             />
 

@@ -30,6 +30,8 @@ export default function Modal({
             // loadingElemRef.current = modalRef.current.querySelector(
             //     "[data-show-loading]",
             // )
+        } else {
+            setPendingData(false)
         }
     }, [pending])
     useEffect(() => {

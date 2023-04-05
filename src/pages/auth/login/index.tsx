@@ -11,9 +11,16 @@ export default function Index() {
     }
 
     useLayoutEffect(() => {
-        if (localStorage.getItem("ata") && localStorage.getItem("atr")) {
+        if (
+            localStorage.getItem("ata") &&
+            localStorage.getItem("atr") &&
+            localStorage.getItem("a-usr")
+        ) {
             changeRoute()
         } else {
+            localStorage.removeItem("ata")
+            localStorage.removeItem("atr")
+            localStorage.removeItem("a-usr")
             toggleLoaded(true)
         }
     }, [])

@@ -1,6 +1,8 @@
 import Image from "next/image"
 import { AuthUserProfile } from "../types"
 import { Form } from "./types"
+import { createFileFromDataUrl } from "../../media/post/utils"
+import CSToast from "../../../library/toast"
 
 type Props = {
     formData: Form
@@ -9,24 +11,82 @@ type Props = {
 
 export default function Avatar({ formData, updateFormData }: Props) {
     //
-    function previewImage(
+    async function previewImage(
         element: HTMLElement,
         files: FileList,
-        action: "cover" | "avatar",
+        action: "cover_img" | "avatar",
     ) {
         const image = element
             .closest(`.${action}`)
             ?.querySelector(`img.${action}`) as HTMLImageElement
 
-        console.log(files)
-
         if (!!files[0] && image) {
-            // image.src = URL.createObjectURL(files[0])
-            updateFormData((prev) => ({
-                ...prev,
-                [action]: URL.createObjectURL(files[0]),
-            }))
+            const img = document.createElement("img")
+            img.src = URL.createObjectURL(files[0])
+            img.onload = async () => {
+                const resizedImg = await resizeImage(img, action === "avatar")
+
+                if (resizedImg) {
+                    const canvas = document.createElement("canvas")
+                    const ctx = canvas.getContext("2d")
+                    canvas.width = resizedImg.width
+                    canvas.height = resizedImg.height
+                    ctx?.drawImage(
+                        resizedImg,
+                        0,
+                        0,
+                        canvas.width,
+                        canvas.height,
+                    )
+
+                    const dataUrl = canvas.toDataURL(files[0].type)
+                    const { file } = await createFileFromDataUrl(dataUrl)
+
+                    updateFormData((prev) => ({
+                        ...prev,
+                        [action]: { url: URL.createObjectURL(file), file },
+                    }))
+                }
+            }
         }
+    }
+
+    async function resizeImage(photo: HTMLImageElement, avatar = true) {
+        let MAX_WIDTH = 800
+        let MAX_HEIGHT = 300
+
+        if (avatar) {
+            MAX_WIDTH = 170
+            MAX_HEIGHT = 170
+
+            if (
+                photo.naturalWidth < MAX_WIDTH - 150 ||
+                photo.naturalHeight < MAX_HEIGHT
+            ) {
+                new CSToast({
+                    text: "Image is small. At least 700x300px is required",
+                    className: "invalid",
+                    position: "top-center",
+                    autoClose: 3000,
+                })
+            }
+        }
+
+        let computed = false
+
+        if (photo.naturalWidth > MAX_WIDTH) {
+            // const ASPECT_RATIO = MAX_WIDTH / photo.width
+            photo.width = MAX_WIDTH
+            // photo.height = photo.height * ASPECT_RATIO
+        }
+
+        if (photo.naturalWidth > MAX_HEIGHT) {
+            // const ASPECT_RATIO = MAX_HEIGHT / photo.height
+            photo.height = MAX_HEIGHT
+            // photo.width = photo.width * ASPECT_RATIO
+        }
+
+        return Promise.resolve(photo)
     }
 
     function changeProfileImage(ev: any) {
@@ -47,7 +107,7 @@ export default function Avatar({ formData, updateFormData }: Props) {
                 fileInput.click()
                 fileInput.addEventListener("change", (ev: any) => {
                     const file = ev.target as HTMLInputElement
-                    previewImage(target, file.files!, "avatar")
+                    previewImage(target, file.files!, "cover_img")
                 })
                 break
             case "remove":
@@ -65,11 +125,17 @@ export default function Avatar({ formData, updateFormData }: Props) {
 
     return (
         <div className="w-full relative">
-            <div className="cover h-max w-full relative rounded-t-md overflow-hidden">
-                <img
-                    className="cover h-[120px] w-full object-cover"
-                    src={formData.cover}
-                    alt="cover"
+            <div className="cover_img h-max w-full relative rounded-t-md overflow-hidden">
+                <Image
+                    className="object-cover cover_img"
+                    height={120}
+                    width={800}
+                    defaultValue={"/images/default-cover_img.png"}
+                    alt="user profile cover"
+                    src={formData.cover_img.url}
+                    style={{
+                        height: "120px",
+                    }}
                 />
 
                 {/* buttons */}
@@ -80,7 +146,9 @@ export default function Avatar({ formData, updateFormData }: Props) {
                             backgroundColor: "rgba(0,0,0, 0.6)",
                         }}
                     >
-                        {formData.cover !== "default-cover" && (
+                        {!formData.cover_img.url?.match(
+                            /default-cover_img/,
+                        ) && (
                             <button
                                 className="flex justify-center items-center rounded-full transition w-[2em] h-[2em] bg-red-500 bg-opacity-30 hover:bg-opacity-50"
                                 title="remove photo"
@@ -101,8 +169,8 @@ export default function Avatar({ formData, updateFormData }: Props) {
                         <button
                             className="flex justify-center items-center rounded-full transition w-[2em] h-[2em] bg-sky-500 bg-opacity-30 hover:bg-opacity-50"
                             title="add photo"
-                            // onClick={changeProfileImage}
-                            data-select-image="cover"
+                            onClick={changeProfileImage}
+                            data-select-image="cover_img"
                             type="button"
                         >
                             <svg
@@ -135,7 +203,7 @@ export default function Avatar({ formData, updateFormData }: Props) {
             >
                 <div className="avatar relative h-full rounded-full overflow-hidden">
                     <Image
-                        src={formData.avatar}
+                        src={formData.avatar.url}
                         className="avatar rounded-full"
                         alt="profile avatar"
                         width={100}

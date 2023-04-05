@@ -18,25 +18,34 @@ export default async function useAuthenticated(user: AuthUser) {
     const [authPending, setPending] = useState<boolean>(true)
 
     useLayoutEffect(() => {
-        authenticate()
-        // if (cookies.get("cs-csrfkey") || cookies.get("cs-auth-val")) {
-        // authenticate()
-        //     return
-        // } else {
-        //     setPending(false)
-        //     router.replace("/auth/login")
-        // }
+        if (localStorage.getItem("a-usr") && localStorage.getItem("ata")) {
+            authenticate()
+        } else {
+            unAuthenticate()
+            setPending(false)
+        }
     }, [])
+
+    function unAuthenticate() {
+        localStorage.removeItem("atr")
+        localStorage.removeItem("ata")
+        localStorage.removeItem("a-usr")
+        router.replace("/auth/login")
+    }
 
     async function authenticate() {
         setPending(true)
         try {
             const res = await celesupBackendApi.get("/authenticate")
             const data: AuthUser = res.data
-            setData(data)
+            if (data.id) {
+                console.log(data)
+                setData(data)
+            } else {
+                throw new Error()
+            }
         } catch (error) {
-            // const errMsg = getErrorMessageFromRequest(error)
-            // setError(errMsg)
+            unAuthenticate()
         }
         setPending(false)
     }

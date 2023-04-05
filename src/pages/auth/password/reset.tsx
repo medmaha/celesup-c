@@ -181,7 +181,7 @@ export default function ResetPassword({ linked, auid, stid }: any) {
                                         <p className="text-sm mt-2">
                                             Enter your user account&apos;s
                                             verified email address and we will
-                                            send you a
+                                            send you a password reset link.
                                         </p>
                                     </>
                                 }

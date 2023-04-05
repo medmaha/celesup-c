@@ -267,6 +267,9 @@ const Heading = ({ field, value }: { field: any; value: any }) => (
             </span>
             you provided.
         </p>
+        <p className="text-sm tracking-wider text-center pt-4">
+            <b className="secondary-text">Note</b>: this may take upto 4 minutes
+        </p>
     </>
 )
 

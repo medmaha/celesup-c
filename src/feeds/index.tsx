@@ -5,8 +5,11 @@ import Suggestions from "../apps/suggestions"
 import PostContainer from "../apps/posts"
 
 export default function Index() {
-    const globalContext = useContext(GlobalContext)
+    const { user } = useContext(GlobalContext)
 
+    useEffect(() => {
+        // console.log(user)
+    }, [user])
     return (
         <div id="indexPage" className="w-full flex justify-evenly md:gap-2">
             {/* <div className="flex-1 p-1 hidden lg:inline-flex basis-[280px] max-w-[300px]">
@@ -15,7 +18,7 @@ export default function Index() {
                     {" doesn't "}make sense to include in.
                 </div>
             </div> */}
-            {globalContext.user && (
+            {user && (
                 <div className="flex-1 flex flex-col gap-[.4rem] items-center lg:basis-[550px] min-h-[100vh] max-w-[610px]">
                     <Compose />
                     <PostContainer />

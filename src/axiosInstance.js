@@ -39,6 +39,7 @@ celesupBackendApi.interceptors.request.use(async (config) => {
             // JWT is expired
             localStorage.removeItem("ata")
             localStorage.removeItem("atr")
+            localStorage.removeItem("a-usr")
             await refreshAuthToken(
                 decodedToken.user.id,
                 refreshToken,

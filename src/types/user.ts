@@ -2,6 +2,7 @@ export type User = {
     id: string
     name?: string
     avatar: string
+    cover_img?: string
     username: string
 }
 export type AuthUserProfile = {
@@ -24,6 +25,7 @@ export type AuthUser = {
     name?: string
     avatar: string
     username: string
+    cover_img?: string
 }
 
 export type AuthTokens = {

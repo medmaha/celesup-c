@@ -40,6 +40,12 @@ export default function Inputs({ formData, updateFormData }: Props) {
                     rows={2}
                     icon={null}
                     className={"bg-primary"}
+                    onChange={(ev: any) => {
+                        console.log(ev.target.name)
+                        console.log(ev.target.value)
+                        handleFormChange(ev)
+                        // handleFormChange({target:{name:'biography'}})
+                    }}
                 />
             </div>
             <div className="flex flex-col w-full ">

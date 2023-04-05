@@ -30,12 +30,17 @@ export default function Profile({ data }: Props) {
                         <div className="panel-1 block overflow-hidden flex-1 sm:min-w-[450px] max-w-[650px] md:max-w-[750px] relative">
                             <div className="profile block tertiary-bg pb-8 rounded-lg overflow-hidden">
                                 <div className="cover secondary-bg h-[190px] w-full overflow-hidden">
-                                    <img
+                                    <Image
                                         style={{
                                             backgroundPosition: "top center",
                                         }}
-                                        className="w-full h-[190px] object-cover"
+                                        className=" object-cover"
                                         src={profile.cover_img}
+                                        width={800}
+                                        height={200}
+                                        defaultValue={
+                                            "/images/default-cover_img.png"
+                                        }
                                         alt="user profile cover"
                                     />
                                 </div>
@@ -171,7 +176,7 @@ export default function Profile({ data }: Props) {
                                     </p>
                                 </div>
                                 <div className="stats px-4 leading-none min-h-[50px] w-full mt-8">
-                                    <div className="w-full flex items-center leading-none h-full shadow secondary-bg rounded-xl px-8">
+                                    <div className="w-full flex gap-6 items-center leading-none h-full shadow secondary-bg rounded-xl px-8">
                                         <div className="flex items-center py-2 h-full w-full justify-around flex-wrap">
                                             <div className="inline-flex gap-1">
                                                 <span className="text-sm font-bold">

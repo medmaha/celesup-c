@@ -25,7 +25,8 @@ function ContextProvider({ children }: Props): JSX.Element {
     const storeDispatch: StoreDispatcher = useDispatch()
 
     useEffect(() => {
-        if (authData && authData.id) {
+        if (authData?.id) {
+            console.log("authData", authData)
             storeDispatch(updateAuthUser({ user: authData }))
         } else {
             storeDispatch(updateAuthUser({ user: null }))

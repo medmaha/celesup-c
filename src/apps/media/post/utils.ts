@@ -24,9 +24,10 @@ export function createFileFromDataUrl(
 
     return new Promise((resolve, reject) => {
         const reader = new FileReader()
-        reader.onload = () => {}
+        reader.onload = () => {
+            return resolve({ file, url: reader.result?.toString()! })
+        }
         reader.readAsDataURL(file)
-        return resolve({ file, url: reader.result! })
     })
 }
 

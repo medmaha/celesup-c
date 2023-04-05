@@ -43,8 +43,9 @@ export default function Profile() {
                             height={50}
                             style={{ objectFit: "cover" }}
                             src={globalContext.user.avatar}
-                            alt={globalContext.user.username}
+                            alt={globalContext.user.username || "celesup"}
                             className="rounded-full"
+                            defaultValue={"images/default-avatar.png"}
                         />
                     )}
                 </div>
