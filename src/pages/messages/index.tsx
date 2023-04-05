@@ -7,7 +7,7 @@ export default function Messages() {
                 Under Development
             </h1>
             <p className="mt-2 text-center secondary-text">
-                this page is currently under development
+                This messaging page is currently under development
             </p>
             <button className="m-1 text-primary">source code</button>
         </div>

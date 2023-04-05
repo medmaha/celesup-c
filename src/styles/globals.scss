@@ -187,22 +187,19 @@ nav {
         position: absolute;
 
         color: var(--onSurfaceColor--);
-        outline: 2px solid var(--bg-tertiary);
-        box-shadow: var(--content-box-shadow);
         background-color: var(--bg-secondary);
         transform: translateY(var(--starting-point-Ycor));
         transition: transform var(--transition-duration) ease-in-out,
             opacity var(--transition-duration) ease-in-out;
         width: max-content;
         top: var(--TOP);
-        padding: 0.5rem 1rem;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        padding: 0.25rem;
         border-radius: 0.25rem;
         opacity: 0;
         pointer-events: none;
 
         /* min-width: 100px; */
-        min-width: 250px;
+        min-width: 200px;
         min-height: 100px;
         height: max-content;
         max-height: calc(100vh - 200px);

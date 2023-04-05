@@ -18,7 +18,7 @@ export default function Discover() {
                 Under Development
             </h1>
             <p className="mt-2 text-center">
-                this page is currently under development
+                This explore page is currently under development
             </p>
             <button className="m-1 text-primary">source code</button>
         </div>

@@ -83,7 +83,10 @@ export default function Dropdown({
                 {button}
             </button>
             {!!isActive && (
-                <div ref={contentRef} className="dropdown-menu border">
+                <div
+                    ref={contentRef}
+                    className="dropdown-menu cs-border border-[1px]"
+                >
                     {items.map((item, idx) => (
                         <span key={idx}>
                             {item && (
@@ -102,7 +105,10 @@ export default function Dropdown({
                     {!!isActive && (
                         <>
                             {!items.length && !!jsxContent && (
-                                <div className="dropdown-item_">
+                                <div
+                                    onClick={() => setActive(false)}
+                                    className="dropdown-item_"
+                                >
                                     {jsxContent}
                                 </div>
                             )}
