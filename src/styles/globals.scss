@@ -175,7 +175,7 @@ nav {
     --transition-duration: 200ms;
     --TOP: calc(100% + 10px);
     position: relative;
-    width: fit-content;
+    // width: fit-content;
     height: 100%;
     display: inline-flex;
     align-items: center;
@@ -245,8 +245,9 @@ nav {
     }
 
     .dropdown-menu svg {
-        width: 20px;
-        height: 20px;
+        width: 18px;
+        height: 18px;
+        fill: currentColor;
     }
 }
 

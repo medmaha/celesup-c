@@ -13,6 +13,7 @@ type Props = {
     items: DropdownItem[]
     jsxContent: null | JSX.Element
     identifier: string
+    title?: string
     options: {
         left?: string
         top?: string
@@ -31,6 +32,7 @@ export default function Dropdown({
     identifier,
     btnParentClass,
     items,
+    title,
     jsxContent,
     options,
 }: Props) {
@@ -77,15 +79,19 @@ export default function Dropdown({
         <span
             id={identifier}
             data-dropdown
-            className={`dropdown ${(isActive && "active") || ""}`}
+            className={`dropdown w-full ${(isActive && "active") || ""}`}
         >
-            <button className={btnParentClass} onClick={toggleDropDown}>
+            <button
+                title={title}
+                className={btnParentClass}
+                onClick={toggleDropDown}
+            >
                 {button}
             </button>
             {!!isActive && (
                 <div
                     ref={contentRef}
-                    className="dropdown-menu cs-border border-[1px]"
+                    className="dropdown-menu cs-border border-[1px] shadow-lg"
                 >
                     {items.map((item, idx) => (
                         <span key={idx}>

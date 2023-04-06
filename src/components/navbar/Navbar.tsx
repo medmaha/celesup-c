@@ -49,7 +49,7 @@ function Navbar() {
                     </h1>
 
                     {globalContext.user && !validatingUser && (
-                        <form method="get" className="w-full">
+                        <form method="get" className="w-full max-w-[450px]">
                             <div
                                 className="w-full inset overflow-hidden focus-within:outline-[var(--primary-light)]
                                 focus-within:outline-[3px]
@@ -93,7 +93,7 @@ function Navbar() {
 
                 {globalContext.user && !validatingUser && (
                     <div
-                        className={`inline-flex h-full sm:flex-1 items-center gap-[1rem] justify-between`}
+                        className={`inline-flex h-full md:flex-1 items-center gap-[1rem] justify-between`}
                     >
                         <NavigationLinks
                             createLinkHandler={createLinkHandler}
