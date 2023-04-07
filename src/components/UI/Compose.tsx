@@ -10,18 +10,18 @@ export default function Compose() {
     return (
         <div
             id="composeCreate"
-            className="sm:p-[1rem] flex-col flex justify-center min-h-[70px] w-full max-w-[560px] rounded-sm
+            className="sm:p-[1rem] flex-col flex justify-center w-full max-w-[560px] rounded-sm
             "
         >
-            <div className="flex justify-around gap-4 sm:gap-2 items-center w-full">
+            <div className="flex justify-around px-1 gap-4 sm:gap-2 items-center w-full overflow-hidden">
                 <Image
                     src="/images/default-avatar.png"
-                    width={50}
-                    height={50}
+                    width={45}
+                    height={45}
                     alt="compose"
                     className="rounded-full outline-1 cs-outline"
                 />
-                <div className="w-full flex flex-col gap-4 h-max sm:px-1 py-2 justify-center">
+                <div className="w-full shrink flex flex-col gap-4 h-max px-1 py-2 justify-center">
                     <div
                         className="py-3 px-2 rounded-lg cursor-pointer
                         outline-2 cs-outline secondary-text w-full"

@@ -15,6 +15,10 @@ export default function Profile({ data }: Props) {
     const [profile, setProfile] = useState<AuthUserProfile>(data)
     const [update, toggleUpdate] = useState<boolean>(false)
 
+    useEffect(() => {
+        setProfile(data)
+    }, [data])
+
     return (
         <>
             {update && (
@@ -29,7 +33,7 @@ export default function Profile({ data }: Props) {
                     <div className="panels flex justify-center gap-4 pb-8">
                         <div className="panel-1 block overflow-hidden flex-1 sm:min-w-[450px] max-w-[650px] md:max-w-[750px] relative">
                             <div className="profile block tertiary-bg pb-8 rounded-lg overflow-hidden">
-                                <div className="cover secondary-bg h-[190px] w-full overflow-hidden">
+                                <div className="cover h-max w-full overflow-hidden">
                                     <Image
                                         style={{
                                             backgroundPosition: "top center",

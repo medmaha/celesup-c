@@ -15,10 +15,8 @@ export default function LayoutsWrapper({ children }: Props): JSX.Element {
 
             <Navbar />
             <div className="mt-[5px]"></div>
-            <div className="flex justify-center mx-[5px] prose lg:prose-xl">
-                <div className="mx-auto w-full prose lg:prose-xl">
-                    {children}
-                </div>
+            <div className="flex justify-center mx-[5px]">
+                <div className="w-full">{children}</div>
             </div>
         </Layout>
     )

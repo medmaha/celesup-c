@@ -11,13 +11,11 @@ type Props = {
 
 export default function Account({ username }: Props) {
     const [profile, setProfile] = useState<AuthUserProfile | null>(null)
-    const router = useRouter()
 
-    async function getProfile() {
+    async function getProfile(name: string) {
         const form = new FormData()
-        const identifier = getProfileIdentifier()
-        if (identifier) {
-            form.append("username", identifier)
+        if (name) {
+            form.append("username", name)
             try {
                 const { data } = await celesupBackendApi({
                     url: "/profile/view",
@@ -28,20 +26,12 @@ export default function Account({ username }: Props) {
             } catch (error) {
                 console.error(error)
             }
-
-            //   url: "/profile/view",
-            // method: "POST",
-            // form: form,
         }
     }
 
     useEffect(() => {
-        getProfile()
+        getProfile(username)
     }, [username])
-
-    function getProfileIdentifier() {
-        return username
-    }
 
     if (profile) return <Profile data={profile} />
 

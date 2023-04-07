@@ -12,6 +12,7 @@ import { GlobalContext } from "../../layouts/context"
 import Profile from "./Profile"
 import { updateMoods } from "../../redux/app"
 import CSCookies from "../../library/cookies"
+import SearchBar from "./NavSearchBar"
 
 function Navbar() {
     const authCookie = () => {
@@ -48,47 +49,7 @@ function Navbar() {
                         </Link>
                     </h1>
 
-                    {globalContext.user && !validatingUser && (
-                        <form method="get" className="w-full max-w-[450px]">
-                            <div
-                                className="w-full inset overflow-hidden focus-within:outline-[var(--primary-light)]
-                                focus-within:outline-[3px]
-                                relative cs-outline outline-2 rounded-sm"
-                            >
-                                <Input
-                                    className={
-                                        "w-full transition focus:pl-[35px] focus:outline-none bg-transparent outline-none sm:min-w-[300px] pl-[32px]"
-                                    }
-                                />
-
-                                <div className="absolute hover:bg-gray-400 hover:bg-opacity-30 bg-opacity-30 bg-gray-300 h-full w-[30px] left-0 top-0">
-                                    <div className="flex h-full w-full items-center justify-center">
-                                        <button
-                                            onClick={(ev: any) => {
-                                                ev.preventDefault()
-
-                                                const input = ev.target
-                                                    .closest("form")
-                                                    .querySelector("input")
-
-                                                input.focus()
-
-                                                if (!!!input.value.length)
-                                                    return
-
-                                                alert("searching")
-                                            }}
-                                        >
-                                            <Icon
-                                                name={"search"}
-                                                className="fill-[var(--text-tertiary)]"
-                                            />
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-                    )}
+                    {globalContext.user && !validatingUser && <SearchBar />}
                 </div>
 
                 {globalContext.user && !validatingUser && (

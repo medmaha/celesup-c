@@ -142,6 +142,17 @@ export default function PostContainer() {
                     </section>
                 )
             })}
+
+            {posts?.data && !posts.data.length && (
+                <p className="flex w-full min-h-[200px] mx-auto h-full p-2 items-center justify-center text-center">
+                    <span
+                        data-hint-text
+                        className="max-w-[35ch] inline-block text-lg tracking-wide animate-pulse"
+                    >
+                        No post be the first to post!
+                    </span>
+                </p>
+            )}
         </div>
     )
 }

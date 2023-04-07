@@ -17,7 +17,7 @@ export function getErrorMessageFromRequest(err: ERROR): string {
         return err.response?.data.message
     } else if (err.request) {
         console.error(err.message)
-        return "An unintended error occurred"
+        return "Unable to connect to the server!"
     } else {
         return err.message
     }
