@@ -143,7 +143,7 @@ export default function PostContainer() {
                 )
             })}
 
-            {posts?.data && !posts.data.length && (
+            {posts.page_index && !posts.data.length && (
                 <p className="flex w-full min-h-[200px] mx-auto h-full p-2 items-center justify-center text-center">
                     <span
                         data-hint-text
