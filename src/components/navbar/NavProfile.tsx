@@ -69,9 +69,7 @@ export default function NavProfile() {
                         <div className="flex flex-col gap-2 w-full">
                             <button
                                 onClick={() => {
-                                    router.push(
-                                        "/" + globalContext.user.username,
-                                    )
+                                    setOnlineStatus((prev) => !prev)
                                 }}
                                 className="hover:text-sky-400 py-1 px-2 rounded-lg inline-flex items-center w-full justify-between bg-sky-500 bg-opacity-0 hover:bg-opacity-10 transition"
                             >
@@ -95,7 +93,7 @@ export default function NavProfile() {
                                         >
                                             <path
                                                 d="M12 5h4V1zm0 11V5L1 16z"
-                                                fill-opacity=".3"
+                                                fillOpacity=".3"
                                             />
                                             <path d="M14 16h2v-2h-2v2zm0-9v5h2V7h-2z" />
                                         </svg>
@@ -109,6 +107,8 @@ export default function NavProfile() {
                                 <span>Profile</span>
                                 <span>
                                     <svg
+                                        height={18}
+                                        width={18}
                                         xmlns="http://www.w3.org/2000/svg"
                                         viewBox="0 0 448 512"
                                     >
