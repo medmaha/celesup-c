@@ -78,8 +78,14 @@ function Content({ toggleNavDrawer, open }: ContentProps) {
             case !!pathName.match(/\/videos/):
                 setActiveLink("Videos")
                 break
+            case !!pathName.match(/\/notifications/):
+                setActiveLink("Notification")
+                break
             case !!pathName.match(/\/messages/):
                 setActiveLink("Messages")
+                break
+            case !!pathName.match(/\/settings/):
+                setActiveLink("Settings")
                 break
             default:
                 break
@@ -267,5 +273,5 @@ const links = [
     { icon: "create", name: "Create", path: null },
     { icon: "hashtag", name: "Explore", path: "/discover" },
     { icon: "video", name: "Videos", path: "/videos" },
-    { icon: "notification", name: "Notifications", path: "/notifications" },
+    { icon: "notification", name: "Notification", path: "/notifications" },
 ]

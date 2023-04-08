@@ -9,6 +9,7 @@ type DropdownItem = {
 type Props = {
     button: null | string | JSX.Element
     onDropped: (ev: any) => void
+    jsxParentClass: string
     btnParentClass: string
     items: DropdownItem[]
     jsxContent: null | JSX.Element
@@ -31,6 +32,7 @@ export default function Dropdown({
     button,
     identifier,
     btnParentClass,
+    jsxParentClass,
     items,
     title,
     jsxContent,
@@ -91,7 +93,9 @@ export default function Dropdown({
             {!!isActive && (
                 <div
                     ref={contentRef}
-                    className="dropdown-menu cs-border border-[1px] shadow-lg"
+                    className={`dropdown-menu cs-border border-[1px] shadow-lg ${
+                        jsxParentClass || ""
+                    }`}
                 >
                     {items.map((item, idx) => (
                         <span key={idx}>
@@ -113,7 +117,7 @@ export default function Dropdown({
                             {!items.length && !!jsxContent && (
                                 <div
                                     onClick={() => setActive(false)}
-                                    className="dropdown-item_"
+                                    className={`dropdown-item_ `}
                                 >
                                     {jsxContent}
                                 </div>
@@ -131,6 +135,7 @@ Dropdown.defaultProps = {
     onDropped: (ev: any) => {},
     identifier: "",
     btnParentClass: "",
+    jsxParentClass: "",
     items: [],
     jsxContent: undefined,
     options: {

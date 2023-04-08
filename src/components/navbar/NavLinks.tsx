@@ -65,9 +65,7 @@ export default function NavLinks({ createLinkHandler }: Props) {
                                         <Link
                                             href={link.path}
                                             onClick={handleLinkClicked}
-                                            title={CSTypography.capitalize(
-                                                link.icon,
-                                            )}
+                                            title={link.name}
                                             className="flex h-[75%]  items-center justify-between"
                                         >
                                             <Icon
@@ -78,9 +76,7 @@ export default function NavLinks({ createLinkHandler }: Props) {
                                     ) : (
                                         <button
                                             onClick={handleLinkClicked}
-                                            title={CSTypography.capitalize(
-                                                link.icon,
-                                            )}
+                                            title={link.name}
                                             className="flex h-[75%]  items-center justify-between"
                                         >
                                             <Icon

@@ -3,6 +3,8 @@ import Dropdown from "../UI/Dropdown"
 import Icon from "../UI/Icon"
 import Image from "next/image"
 import { celesupBackendApi } from "../../axiosInstance"
+import Loading from "../UI/Loading"
+import { AuthUser } from "../../types/user"
 
 type Notification = any
 type NotificationsArray = Notification[]
@@ -19,7 +21,7 @@ export default function NotificationsLink({ link, handleLinkClicked }: any) {
 
     return (
         <Dropdown
-            title={newAlerts ? "You've new notifications" : "notifications"}
+            title={newAlerts ? "You've new notifications" : "Notifications"}
             btnParentClass="inline-flex h-[75%] items-center relative"
             button={
                 <>
@@ -39,6 +41,7 @@ export default function NotificationsLink({ link, handleLinkClicked }: any) {
             }
             identifier="alerts"
             options={{ right: "50%" }}
+            jsxParentClass="z-20"
             jsxContent={
                 <Content data={notifications} setData={setNotifications} />
             }
@@ -46,8 +49,24 @@ export default function NotificationsLink({ link, handleLinkClicked }: any) {
     )
 }
 
+type Alert = {
+    id: string
+    sender: AuthUser
+    action: string
+    hint: string
+    hint_img: string
+}
+
+type Notifications = {
+    new: Alert[]
+    old: Alert[]
+}
+
 function Content({ data, setData }: any) {
-    const [notifications, setNotifications] = useState(data)
+    const [notifications, setNotifications] = useState<Notifications | null>(
+        null,
+    )
+    const [pending, togglePending] = useState(false)
 
     useEffect(() => {
         getNotifications()
@@ -58,16 +77,18 @@ function Content({ data, setData }: any) {
     }, [data])
 
     async function getNotifications() {
+        togglePending(true)
         try {
             const { data } = await celesupBackendApi.get("/notifications")
             setData(data)
         } catch (error: any) {
             console.error(error.message)
         }
+        togglePending(false)
     }
 
     return (
-        <div className="w-full max-w-[300px] sm:min-w-[250px] md:min-w-[300px]">
+        <div className="w-full secondary-bg z-[100] primary-text max-w-[300px] sm:min-w-[250px] md:min-w-[300px]">
             <h4 className="text-semibold w-full items-center font-medium tracking-wide pt-1 px-2 inline-flex justify-between gap-4">
                 <span className="inline-block">Alerts</span>
                 <button>
@@ -81,9 +102,15 @@ function Content({ data, setData }: any) {
                 </button>
             </h4>
             <span className="cs-divider"></span>
-            <div className="block w-full h-full max-h-[400px] overflow-hidden overflow-y-auto">
+            <div className="block w-full h-full min-h-max relative max-h-[400px] overflow-hidden overflow-y-auto">
+                {pending && <Loading loader="spinner" text={null} />}
+                {notifications && !(notifications.new || notifications.old) && (
+                    <p className="text-center pt-4 text-base font-semibold tracking-wide h-full flex justify-center items-center">
+                        You haven&apos;t got notifications yet!
+                    </p>
+                )}
                 <div className="py-2 w-full flex flex-col gap-2">
-                    {notifications?.new.map(
+                    {notifications?.new?.map(
                         (notification: any, idx: number) => {
                             console.log(notification)
                             return (
