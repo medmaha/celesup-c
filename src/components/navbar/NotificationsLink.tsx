@@ -20,7 +20,7 @@ export default function NotificationsLink({ link, handleLinkClicked }: any) {
     return (
         <Dropdown
             title={newAlerts ? "You've new notifications" : "notifications"}
-            btnParentClass="inline-flex h-[75%] w-[75%] items-center relative"
+            btnParentClass="inline-flex h-[75%] items-center relative"
             button={
                 <>
                     {newAlerts && (
@@ -28,7 +28,7 @@ export default function NotificationsLink({ link, handleLinkClicked }: any) {
                     )}
                     <span
                         onClick={handleLinkClicked}
-                        className="flex h-[75%] w-[65%] items-center"
+                        className="flex h-[75%] items-center justify-center"
                     >
                         <Icon
                             name={link.icon}

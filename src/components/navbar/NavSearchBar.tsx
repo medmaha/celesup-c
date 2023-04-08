@@ -120,7 +120,7 @@ export default function SearchBar() {
             ref={formRef}
             data-search-form
             method="get"
-            className="w-full max-w-[450px] relative"
+            className="w-full max-w-[450px] relative flex-1"
         >
             <div className="w-full inset overflow-hidden focus-within:outline-[var(--primary-light)] focus-within:outline-[3px] z-[105px] cs-outline outline-2 rounded-sm">
                 <Input

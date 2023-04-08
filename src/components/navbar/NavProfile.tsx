@@ -9,7 +9,7 @@ import { GlobalContext as GlobalAppContext } from "../../types/global"
 import { useRouter } from "next/router"
 import Link from "next/link"
 
-export default function Profile() {
+export default function NavProfile() {
     const globalContext = useContext(GlobalContext)
     const [onlineStatus, setOnlineStatus] = useState(true)
     const router = useRouter()
@@ -27,9 +27,9 @@ export default function Profile() {
 
     return (
         <Dropdown
-            btnParentClass="inline-block w-full h-full"
+            btnParentClass="inline-flex justify-center items-center"
             button={
-                <div className="rounded-full outline-2 cs-outline w-[50px] h-[50px]">
+                <span className="inline-block rounded-full outline-2 cs-outline w-[40px] h-[40px]">
                     {globalContext.user?.avatar && (
                         <Image
                             onClick={() => {
@@ -39,8 +39,8 @@ export default function Profile() {
                                     }),
                                 )
                             }}
-                            width={50}
-                            height={50}
+                            width={40}
+                            height={40}
                             style={{ objectFit: "cover" }}
                             src={globalContext.user.avatar}
                             alt={globalContext.user.username || "celesup"}
@@ -48,7 +48,7 @@ export default function Profile() {
                             defaultValue={"images/default-avatar.png"}
                         />
                     )}
-                </div>
+                </span>
             }
             jsxContent={
                 <>

@@ -79,7 +79,7 @@ export default function Dropdown({
         <span
             id={identifier}
             data-dropdown
-            className={`dropdown w-full ${(isActive && "active") || ""}`}
+            className={`dropdown w-max ${(isActive && "active") || ""}`}
         >
             <button
                 title={title}
