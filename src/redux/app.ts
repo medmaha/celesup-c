@@ -30,6 +30,7 @@ export const appSlice = createSlice({
             create: false,
             updateFeeds: false,
             playingAudio: false,
+            loaded: false,
 
             loadingRequest: false,
             errorMessage: false,
@@ -83,12 +84,14 @@ export const appSlice = createSlice({
                     createPost: false,
                     create: false,
                     playingAudio: false,
+                    loaded: false,
 
                     loadingRequest: false,
                     errorMessage: false,
                     successMessage: false,
                     infoMessage: false,
                     updateFeeds: false,
+                    ...action.payload.data,
                 }
             } else {
                 state.moods = {

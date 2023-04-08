@@ -2,7 +2,7 @@ import META from "./META"
 import { Provider } from "react-redux"
 import ContextProvider from "./context"
 import AppsReduxStore from "../redux/store"
-import Navbar from "../components/navbar/Navbar"
+import Navbar from "../components/navbar"
 
 type Props = {
     children: any

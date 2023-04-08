@@ -1,5 +1,5 @@
 import { createContext, useEffect, useState } from "react"
-import { updateAuthUser, updateAuthTokens } from "../redux/app"
+import { updateAuthUser, updateAuthTokens, updateMoods } from "../redux/app"
 import { useDispatch, useSelector } from "react-redux"
 import useAuthenticate from "./hooks/useAuthenticate"
 
@@ -23,6 +23,10 @@ function ContextProvider({ children }: Props): JSX.Element {
     const { authData, authPending } = useAuthenticate(user)
 
     const storeDispatch: StoreDispatcher = useDispatch()
+
+    useEffect(() => {
+        storeDispatch(updateMoods({ loaded: authPending === false }))
+    }, [authPending])
 
     useEffect(() => {
         if (authData?.id) {

@@ -9,6 +9,7 @@ export default function NavMenu({ navDrawer, toggleNavDrawer }: Props) {
     return (
         <div className="inline-block md:hidden">
             <button
+                data-drawer-btn
                 onClick={() => {
                     toggleNavDrawer((prev) => !prev)
                 }}

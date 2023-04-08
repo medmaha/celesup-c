@@ -69,11 +69,16 @@ export default function useAuthenticated(user: AuthUser) {
         const authRoutes = path.match(/\/auth\//g)
         const authPersistence = !!localStorage.getItem("ata")
 
+        if (authPersistence) {
+            if (authRoutes) {
+                router.replace("/")
+            }
+            return true
+        }
+
         if (authRoutes) return "auth"
 
-        if (!authPersistence) return false
-
-        return true
+        return false
     }
 
     async function authenticate() {

@@ -72,9 +72,17 @@ function Content({ toggleNavDrawer, open }: ContentProps) {
     }
 
     function handleDomClick(ev: any) {
-        if (ev.target.hasAttribute("data-nav-drawer")) {
+        const target = ev.target
+
+        if (
+            target.closest("ul") !== drawerRef.current &&
+            !target.dataset.drawerBtn &&
+            !target.closest("[data-drawer-btn]")
+        )
             toggleNavDrawer(() => false)
-        }
+        // if (ev.target.hasAttribute("data-nav-drawer")) {
+        //     toggleNavDrawer(() => false)
+        // }
     }
 
     const [activeLink, setActiveLink] = useState("")

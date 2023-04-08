@@ -36,6 +36,9 @@ export default function NavProfile() {
                                 storeDispatch(
                                     updateMoods({
                                         dispatch: true,
+                                        data: {
+                                            loaded: true,
+                                        },
                                     }),
                                 )
                             }}

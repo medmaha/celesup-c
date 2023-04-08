@@ -9,6 +9,7 @@ export type AppMoods = {
     create: false | string
     updateFeeds: false | string
     playingAudio: false | string
+    loaded: boolean
 
     loadingRequest: boolean | string
     errorMessage: boolean | string
