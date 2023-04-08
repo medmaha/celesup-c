@@ -168,7 +168,7 @@ function Content({ data, setData }: any) {
                                         </div>
                                     </div>
 
-                                    {idx !== notifications?.length && (
+                                    {idx !== notifications?.new?.length && (
                                         <span className="cs-divider w-[90%] mx-auto"></span>
                                     )}
                                 </span>
