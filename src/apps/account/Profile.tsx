@@ -5,18 +5,20 @@ import CSDateTime from "../../library/dateTime"
 import CSTypography from "../../library/typography"
 import { AuthUserProfile } from "./types"
 import UpdateProfile from "./ProfileUpdate"
+import { updateActiveLink } from "../../redux/app"
 
 type Props = {
     data: AuthUserProfile
 }
 
 export default function Profile({ data }: Props) {
-    const { user } = useContext(GlobalContext)
+    const { user, storeDispatch } = useContext(GlobalContext)
     const [profile, setProfile] = useState<AuthUserProfile>(data)
     const [update, toggleUpdate] = useState<boolean>(false)
 
     useEffect(() => {
         setProfile(data)
+        storeDispatch(updateActiveLink({ data: "" }))
     }, [data])
 
     return (
@@ -28,34 +30,33 @@ export default function Profile({ data }: Props) {
                     openUpdateModal={toggleUpdate}
                 />
             )}
-            <div className="block w-full h-full p-2 sm:p-6">
+            <div className="block w-full h-full p-1 sm:p-2">
                 <div className="block mx-auto max-w-[1100px] w-full h-full">
                     <div className="panels flex justify-center gap-4 pb-8">
-                        <div className="panel-1 block overflow-hidden flex-1 sm:min-w-[450px] max-w-[650px] md:max-w-[750px] relative">
+                        <div className="panel-1 block overflow-hidden flex-1 sm:min-w-[500px] max-w-[650px] md:max-w-[750px] relative">
                             <div className="profile block tertiary-bg pb-8 rounded-lg overflow-hidden">
-                                <div className="cover h-max w-full overflow-hidden">
-                                    <Image
-                                        style={{
-                                            backgroundPosition: "top center",
-                                        }}
-                                        className=" object-cover"
-                                        src={profile.cover_img}
-                                        width={800}
-                                        height={200}
-                                        defaultValue={
-                                            "/images/default-cover_img.png"
-                                        }
-                                        alt="user profile cover"
-                                    />
-                                </div>
-                                <div className="avatar block">
-                                    <div className="flex justify-between gap-4 flex-wrap px-4">
+                                <div className="relative w-full bg-blue-400">
+                                    <div className="cover relative w-full">
+                                        <Image
+                                            style={{
+                                                backgroundPosition:
+                                                    "top center",
+                                            }}
+                                            className=" object-cover"
+                                            src={profile.cover_img}
+                                            width={800}
+                                            height={200}
+                                            defaultValue={
+                                                "/images/default-cover_img.png"
+                                            }
+                                            alt="user profile cover"
+                                        />
                                         <div
                                             style={{
                                                 position: "absolute",
                                                 left: "1em",
                                             }}
-                                            className="image top-[100px] h-[130px] rounded-full w-[130px] border-[1px] cs-border"
+                                            className="image z-10 bottom-[-2em] h-[130px] rounded-full w-[130px] border-[1px] cs-border"
                                         >
                                             <Image
                                                 className="rounded-full"
@@ -65,49 +66,55 @@ export default function Profile({ data }: Props) {
                                                 alt="user profile avatar"
                                             />
                                         </div>
-                                        <div className="h-4 w-[50px]"></div>
-                                        <div className="client-action pt-4">
-                                            {user &&
-                                            !!(user.id === profile.id) ? (
-                                                <button
-                                                    onClick={() =>
-                                                        toggleUpdate(
-                                                            (prev) => !prev,
-                                                        )
-                                                    }
-                                                    title="Edit profile"
-                                                    className="bg-primary rounded-full w-10 h-10 inline-flex justify-center items-center leading-none"
-                                                >
-                                                    <span>
-                                                        <svg
-                                                            xmlns="http://www.w3.org/2000/svg"
-                                                            width="18"
-                                                            height="18"
-                                                            viewBox="0 0 18 18"
-                                                        >
-                                                            <path d="M2 12.88V16h3.12L14 7.12 10.88 4 2 12.88zm14.76-8.51c.33-.33.33-.85 0-1.18l-1.95-1.95c-.33-.33-.85-.33-1.18 0L12 2.88 15.12 6l1.64-1.63z" />
-                                                        </svg>
-                                                    </span>
-                                                </button>
-                                            ) : (
-                                                <button className="bg-primary font-semibold rounded-md px-4 py-2">
-                                                    + Connect
-                                                </button>
-                                            )}
-                                        </div>
                                     </div>
                                 </div>
-                                <div className="name px-4 max-w-[50ch] flex flex-col w-full">
-                                    {profile.name && (
-                                        <h2 className="w-[200px] text-xl font-bold leading-none">
-                                            {profile.name}
-                                        </h2>
-                                    )}
-                                    {profile.username && (
-                                        <p className="w-full font-semibold tracking-wide">
-                                            @{profile.username}
-                                        </p>
-                                    )}
+                                <div className="h-[35px] w-[50px]"></div>
+                                <div className="name px-4 flex justify-between w-full">
+                                    <div className="max-w-[50ch] flex flex-col w-full pt-2">
+                                        {profile.name && (
+                                            <h2 className="w-[200px] text-xl font-bold leading-none">
+                                                {profile.name}
+                                            </h2>
+                                        )}
+                                        {profile.username && (
+                                            <p className="w-full font-semibold tracking-wide">
+                                                @{profile.username}
+                                            </p>
+                                        )}
+                                    </div>
+                                    <div
+                                        style={{
+                                            transform: "translateY(-50%)",
+                                        }}
+                                        className="client-action pt-4 self-start"
+                                    >
+                                        {user && !!(user.id === profile.id) ? (
+                                            <button
+                                                onClick={() =>
+                                                    toggleUpdate(
+                                                        (prev) => !prev,
+                                                    )
+                                                }
+                                                title="Edit profile"
+                                                className="bg-primary rounded-full w-10 h-10 inline-flex justify-center items-center leading-none"
+                                            >
+                                                <span>
+                                                    <svg
+                                                        xmlns="http://www.w3.org/2000/svg"
+                                                        width="18"
+                                                        height="18"
+                                                        viewBox="0 0 18 18"
+                                                    >
+                                                        <path d="M2 12.88V16h3.12L14 7.12 10.88 4 2 12.88zm14.76-8.51c.33-.33.33-.85 0-1.18l-1.95-1.95c-.33-.33-.85-.33-1.18 0L12 2.88 15.12 6l1.64-1.63z" />
+                                                    </svg>
+                                                </span>
+                                            </button>
+                                        ) : (
+                                            <button className="bg-primary font-semibold rounded-md px-4 py-2">
+                                                + Connect
+                                            </button>
+                                        )}
+                                    </div>
                                 </div>
                                 <div className="about flex flex-col sm:flex-row mt-4 sm:mt-0 sm:items-center gap-4 justify-between px-4 w-full">
                                     {profile.biography && (
@@ -181,8 +188,8 @@ export default function Profile({ data }: Props) {
                                 </div>
                                 <div className="stats px-4 leading-none min-h-[50px] w-full mt-8">
                                     <div className="w-full flex gap-6 items-center leading-none h-full shadow secondary-bg rounded-xl px-8">
-                                        <div className="flex items-center py-2 h-full w-full justify-around flex-wrap">
-                                            <div className="inline-flex gap-1">
+                                        <div className="flex items-center gap-1 py-2 h-full w-full justify-around flex-wrap">
+                                            <div className="inline-flex gap-1 px-2">
                                                 <span className="text-sm font-bold">
                                                     350
                                                 </span>
@@ -190,7 +197,7 @@ export default function Profile({ data }: Props) {
                                                     posts
                                                 </span>
                                             </div>
-                                            <div className="inline-flex gap-1">
+                                            <div className="inline-flex gap-1 px-2">
                                                 <span className="text-sm font-bold">
                                                     72
                                                 </span>
@@ -198,7 +205,7 @@ export default function Profile({ data }: Props) {
                                                     shared
                                                 </span>
                                             </div>
-                                            <div className="inline-flex gap-1">
+                                            <div className="inline-flex gap-1 px-2">
                                                 <span className="text-sm font-bold">
                                                     900
                                                 </span>
@@ -206,7 +213,7 @@ export default function Profile({ data }: Props) {
                                                     friends
                                                 </span>
                                             </div>
-                                            <div className="inline-flex gap-1">
+                                            <div className="inline-flex gap-1 px-2">
                                                 <span className="text-sm font-bold">
                                                     1.2k
                                                 </span>
@@ -215,7 +222,7 @@ export default function Profile({ data }: Props) {
                                                 </span>
                                             </div>
 
-                                            <div className="inline-flex gap-1">
+                                            <div className="inline-flex gap-1  px-2">
                                                 <span className="text-sm font-bold">
                                                     241
                                                 </span>
@@ -235,13 +242,13 @@ export default function Profile({ data }: Props) {
                                 </h2>
 
                                 <div className="activities mt-4 rounded-md">
-                                    <h2 className="h-[7em] w-full bg-gray-400"></h2>
+                                    <h2 className="h-[7em] w-full "></h2>
                                 </div>
                             </div>
                         </div>
                         <div
                             className="panel-2 shrink hidden md:block flex-1 
-                        min-w-[250px] max-w-[calc(1100px-750px)] rounded-t-md"
+                            min-w-[200px] max-w-[calc(1100px-750px)] rounded-t-md"
                         >
                             <div className="premium p-4 rounded-xl secondary-bg shadow-md">
                                 <h2 className="text-center pb-2 text-lg font-semibold">

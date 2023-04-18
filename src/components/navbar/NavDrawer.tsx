@@ -261,7 +261,7 @@ function Content({ toggleNavDrawer, open }: ContentProps) {
                 {/* <span className="cs-divider"></span> */}
                 <span className="cs-divider secondary-bg"></span>
                 <p className="text-center secondary-text pt-2">
-                    Copyright © 2023 Celesup Inc. All rights reserved.
+                    Copyright © 2023 Celehub Inc. All rights reserved.
                 </p>
             </div>
         </ul>

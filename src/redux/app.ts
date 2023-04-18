@@ -58,20 +58,23 @@ export const appSlice = createSlice({
             }
         },
 
-        updateActiveLink(state, action) {
+        updateActiveLink(
+            state,
+            action: { type: string; payload: { data: string } },
+        ) {
             const activeLink = state.activeLink
             const currentLink = action.payload.data
 
-            const activeLinkElement = document.querySelector(
-                `nav [data-link="${activeLink}"]`,
-            )
-
-            const currentLinkElement = document.querySelector(
-                `nav [data-link="${currentLink}"]`,
-            )
-
-            if (activeLinkElement && currentLinkElement) {
+            if (!!activeLink) {
+                const activeLinkElement = document.querySelector(
+                    `nav [data-link="${activeLink}"]`,
+                )!
                 activeLinkElement.classList.remove("active")
+            }
+            if (!!currentLink) {
+                const currentLinkElement = document.querySelector(
+                    `nav [data-link="${currentLink}"]`,
+                )!
                 currentLinkElement.classList.add("active")
             }
 

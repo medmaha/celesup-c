@@ -93,7 +93,7 @@ const HashtagField = (props: Props) => {
         <div className="d-block mb-4">
             <input
                 ref={instanceRef}
-                className={classes + " cs-input w-full tertiary-bg px-[.5rem]"}
+                className={classes + " cs-input w-full px-[.5rem]"}
                 value={hashtags}
                 onChange={handleTagChange}
                 {...restProps}

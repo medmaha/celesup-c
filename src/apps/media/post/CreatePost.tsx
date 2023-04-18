@@ -117,7 +117,7 @@ export default function CreatePost({ setConfig, onClose }: Params) {
     )
 
     return (
-        <div className="relative">
+        <div className="relative max-w-[450px] mx-auto pt-1">
             {loading && (
                 <div className="absolute top-0 left-0 w-full h-full z-20">
                     <div className="bg-slate-900 w-full h-full p-2 bg-opacity-90 rounded-lg">

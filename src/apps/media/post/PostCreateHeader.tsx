@@ -56,13 +56,11 @@ export default function PostCreateHeader({
                 {config.closeBtn && (
                     <li
                         title="Exit create"
-                        className="icon-wrapper cursor-pointer hover:text-red-400 transition"
+                        className="icon-wrapper"
                         onClick={config["METHODS"].onCloseBtnClicked}
                     >
-                        <button>
-                            <span className="text-xl font-semibold">
-                                &times;
-                            </span>
+                        <button className="leading-none rounded-full inline-flex justify-center items-center font-bold text-lg h-8 w-8 bg-red-500 bg-opacity-0 hover:bg-opacity-40 hover:text-white transition">
+                            &times;
                         </button>
                     </li>
                 )}

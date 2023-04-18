@@ -1,17 +1,31 @@
-import React, { useEffect, useState } from "react"
+import React, { SetStateAction, useEffect, useState } from "react"
 import Dropdown from "../UI/Dropdown"
 import Icon from "../UI/Icon"
 import Image from "next/image"
 import { celesupBackendApi } from "../../axiosInstance"
 import Loading from "../UI/Loading"
 import { AuthUser } from "../../types/user"
+import { useDispatch } from "react-redux"
+import { updateActiveLink } from "../../redux/app"
 
-type Notification = any
-type NotificationsArray = Notification[]
+type Notification = {
+    sender?: AuthUser
+    recipient: AuthUser
+    action: string
+    hint: string
+    hint_img: string
+    created_at: string
+    id: string
+}
+type Notifications = {
+    new: Notification[]
+    old: Notification[]
+}
 
 export default function NotificationsLink({ link, handleLinkClicked }: any) {
-    const [notifications, setNotifications] =
-        useState<null | NotificationsArray>(null)
+    const [notifications, setNotifications] = useState<null | Notifications>(
+        null,
+    )
 
     useEffect(() => {
         console.log(notifications)
@@ -41,7 +55,6 @@ export default function NotificationsLink({ link, handleLinkClicked }: any) {
             }
             identifier="alerts"
             options={{ right: "50%" }}
-            jsxParentClass="z-20"
             jsxContent={
                 <Content data={notifications} setData={setNotifications} />
             }
@@ -49,31 +62,43 @@ export default function NotificationsLink({ link, handleLinkClicked }: any) {
     )
 }
 
-type Alert = {
-    id: string
-    sender: AuthUser
-    action: string
-    hint: string
-    hint_img: string
+type Props = {
+    data: Notifications | null
+    setData: (
+        callback: (data: Notifications | null) => Notifications | null,
+    ) => void
 }
 
-type Notifications = {
-    new: Alert[]
-    old: Alert[]
-}
-
-function Content({ data, setData }: any) {
+function Content({ data, setData }: Props) {
     const [notifications, setNotifications] = useState<Notifications | null>(
         null,
     )
     const [pending, togglePending] = useState(false)
 
+    const storeDispatch = useDispatch()
+
     useEffect(() => {
-        getNotifications()
+        if (data === null) getNotifications()
+
+        return () => {
+            let pathName = window.location.pathname
+            let paths = pathName.match(/\//g)
+
+            if (paths?.length! > 1) {
+                pathName = ""
+            } else {
+                pathName = pathName.replace(/\//, "") || "home"
+            }
+            storeDispatch(
+                updateActiveLink({
+                    data: pathName,
+                }),
+            )
+        }
     }, [])
 
     useEffect(() => {
-        setNotifications(data)
+        if (data !== null) setNotifications(data)
     }, [data])
 
     async function getNotifications() {
@@ -81,16 +106,34 @@ function Content({ data, setData }: any) {
         try {
             const { data } = await celesupBackendApi.get("/notifications")
             setData(data)
+            seenNotifications(data)
         } catch (error: any) {
             console.error(error.message)
         }
         togglePending(false)
     }
 
+    let timeout: any
+    async function seenNotifications(data: Notifications) {
+        const notifications = data.new.map((alert) => alert.id)
+
+        if (timeout) clearTimeout(timeout)
+
+        setTimeout(async () => {
+            try {
+                await celesupBackendApi.put("/notifications/viewed", {
+                    notifications,
+                })
+            } catch (error: any) {
+                console.log(error.message)
+            }
+        }, 2500)
+    }
+
     return (
         <div className="w-full secondary-bg z-[100] primary-text max-w-[300px] sm:min-w-[250px] md:min-w-[300px]">
             <h4 className="text-semibold w-full items-center font-medium tracking-wide pt-1 px-2 inline-flex justify-between gap-4">
-                <span className="inline-block">Alerts</span>
+                <span className="inline-block">Notifications</span>
                 <button>
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -104,32 +147,41 @@ function Content({ data, setData }: any) {
             <span className="cs-divider"></span>
             <div className="block w-full h-full min-h-max relative max-h-[400px] overflow-hidden overflow-y-auto">
                 {pending && <Loading loader="spinner" text={null} />}
-                {notifications && !(notifications.new || notifications.old) && (
-                    <p className="text-center pt-4 text-base font-semibold tracking-wide h-full flex justify-center items-center">
-                        You haven&apos;t got notifications yet!
-                    </p>
-                )}
-                <div className="py-2 w-full flex flex-col gap-2">
-                    {notifications?.new?.map(
-                        (notification: any, idx: number) => {
-                            console.log(notification)
+                {notifications &&
+                    !(
+                        !!notifications.new?.length ||
+                        !!notifications.old?.length
+                    ) && (
+                        <p className="text-center text-base min-h-[100px] py-4 px-1 font-semibold tracking-wider h-full flex justify-center items-center">
+                            You haven&apos;t got notifications yet!
+                        </p>
+                    )}
+                {!!notifications?.new?.length && (
+                    <div className="pb-2 w-full flex flex-col gap-2">
+                        <h4 className="text-sm secondary-text font-semibold px-2 text-center">
+                            New
+                        </h4>
+                        <span className="cs-divider"></span>
+                        {notifications.new?.map((notification, idx: number) => {
                             return (
                                 <span key={notification.id}>
                                     <div className="inline-flex items-center justify-between px-2 gap-4 w-full">
-                                        <div className="sender inline-block w-max">
-                                            <div className="w-[35px] rounded-full cs-border border-[1px]">
-                                                <Image
-                                                    alt="notification sender avatar"
-                                                    src={
-                                                        notification.sender
-                                                            .avatar
-                                                    }
-                                                    width={35}
-                                                    height={35}
-                                                    className="rounded-full"
-                                                />
+                                        {notification.sender && (
+                                            <div className="sender inline-block w-max">
+                                                <div className="w-[35px] rounded-full cs-border border-[1px]">
+                                                    <Image
+                                                        alt="notification sender avatar"
+                                                        src={
+                                                            notification.sender
+                                                                .avatar
+                                                        }
+                                                        width={35}
+                                                        height={35}
+                                                        className="rounded-full"
+                                                    />
+                                                </div>
                                             </div>
-                                        </div>
+                                        )}
                                         <div className="flex-1 inline-flex gap-1 items-center w-full justify-between">
                                             <div className="hint inline-flex flex-col w-full">
                                                 <p>{notification.action}</p>
@@ -152,7 +204,7 @@ function Content({ data, setData }: any) {
                                             </div>
                                             {notification.hint_img && (
                                                 <div className="hint-img w-max">
-                                                    <div className="cs-border border-[1px] rounded-md w-[70px]">
+                                                    <div className="rounded-md w-[70px]">
                                                         <Image
                                                             alt="notification hint photo"
                                                             src={
@@ -169,13 +221,85 @@ function Content({ data, setData }: any) {
                                     </div>
 
                                     {idx !== notifications?.new?.length && (
-                                        <span className="cs-divider w-[90%] mx-auto"></span>
+                                        <span className="cs-divider "></span>
                                     )}
                                 </span>
                             )
-                        },
-                    )}
-                </div>
+                        })}
+                    </div>
+                )}
+                {!!notifications?.old?.length && (
+                    <div className="pb-2 w-full flex flex-col gap-2">
+                        <h4 className="text-sm secondary-text font-semibold px-2 text-center">
+                            Old Notifications
+                        </h4>
+                        <span className="cs-divider"></span>
+                        {notifications.old.map((notification, idx: number) => {
+                            return (
+                                <span key={notification.id}>
+                                    <div className="inline-flex items-center justify-between px-2 gap-4 w-full">
+                                        {notification.sender && (
+                                            <div className="sender inline-block w-max">
+                                                <div className="w-[35px] rounded-full cs-border border-[1px]">
+                                                    <Image
+                                                        alt="notification sender avatar"
+                                                        src={
+                                                            notification.sender
+                                                                .avatar
+                                                        }
+                                                        width={35}
+                                                        height={35}
+                                                        className="rounded-full"
+                                                    />
+                                                </div>
+                                            </div>
+                                        )}
+                                        <div className="flex-1 inline-flex gap-1 items-center w-full justify-between">
+                                            <div className="hint inline-flex flex-col w-full">
+                                                <p>{notification.action}</p>
+                                                {notification.hint && (
+                                                    <p
+                                                        className="line-clamp-3"
+                                                        style={{
+                                                            overflow: "hidden",
+                                                            display:
+                                                                " -webkit-box",
+                                                            WebkitBoxOrient:
+                                                                "vertical",
+                                                            WebkitLineClamp:
+                                                                "3",
+                                                        }}
+                                                    >
+                                                        {notification.hint}
+                                                    </p>
+                                                )}
+                                            </div>
+                                            {notification.hint_img && (
+                                                <div className="hint-img w-max">
+                                                    <div className="rounded-md w-[70px]">
+                                                        <Image
+                                                            alt="notification hint photo"
+                                                            src={
+                                                                notification.hint_img
+                                                            }
+                                                            width={70}
+                                                            height={70}
+                                                            className="rounded-md"
+                                                        />
+                                                    </div>
+                                                </div>
+                                            )}
+                                        </div>
+                                    </div>
+
+                                    {idx !== notifications?.old?.length && (
+                                        <span className="cs-divider "></span>
+                                    )}
+                                </span>
+                            )
+                        })}
+                    </div>
+                )}
             </div>
         </div>
     )

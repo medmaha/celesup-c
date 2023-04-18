@@ -96,26 +96,24 @@ function ModalContent({
             <div className="bg-transparent backdrop-blur-[3px] w-full p-3 pt-[65px] h-full flex items-center justify-center">
                 <div
                     id="cs-modal"
-                    className="cs-modal w-full h-max bg-0 p-0 max-w-[500px] rounded-lg secondary-bg shadow shadow-black"
+                    className="cs-modal w-full min-h-[450px] h-max bg-0 p-0 max-w-[600px] rounded-xl secondary-bg shadow shadow-black"
                 >
                     <div className="">
                         {showLogo && (
                             <div className="max-h-[45px] py-auto w-full relative">
                                 <div className="absolute left-2 top-2">
-                                    <div className="text-[25px] rounded-full hover:bg-red-300 hover:bg-opacity-50 hover:text-red-600">
-                                        <div
-                                            className="flex justify-center items-center h-8 w-8 font-semibold"
-                                            onClick={closeModal}
-                                        >
-                                            <button className="leading-none">
-                                                &times;
-                                            </button>
-                                        </div>
+                                    <div
+                                        className="flex justify-center items-center font-semibold"
+                                        onClick={closeModal}
+                                    >
+                                        <button className="leading-none rounded-full transition inline-flex justify-center items-center font-bold text-lg h-8 w-8 hover:bg-red-300 hover:bg-opacity-50 hover:text-red-600">
+                                            &times;
+                                        </button>
                                     </div>
                                 </div>
                                 <div className="flex h-full justify-center items-center">
                                     <Image
-                                        alt="celesup logo"
+                                        alt="Celehub logo"
                                         src="/images/cs-logo.png"
                                         width={30}
                                         height={50}
@@ -143,15 +141,13 @@ function ModalContent({
                                             }`}
                                         >
                                             {!showLogo && (
-                                                <div className="text-[25px] rounded-full hover:bg-red-300 hover:bg-opacity-50 hover:text-red-600">
-                                                    <div
-                                                        className="flex justify-center items-center h-8 w-8 font-semibold"
-                                                        onClick={closeModal}
-                                                    >
-                                                        <button className="leading-none">
-                                                            &times;
-                                                        </button>
-                                                    </div>
+                                                <div
+                                                    className="flex justify-center items-center font-semibold"
+                                                    onClick={closeModal}
+                                                >
+                                                    <button className="leading-none transition inline-flex justify-center items-center rounded-full font-bold text-lg h-8 w-8 hover:bg-red-300 hover:bg-opacity-50 hover:text-red-600">
+                                                        &times;
+                                                    </button>
                                                 </div>
                                             )}
                                             <div className="cursor-pointer w-max">

@@ -1,10 +1,10 @@
-export default function PreRenderpre() {
+export default function PreRender() {
     return (
         <>
-            <div className={" block w-full h-full p-6"}>
+            <div className={" block w-full h-full p-2 md:p-6"}>
                 <div className="block mx-auto max-w-[1100px] w-full h-full">
-                    <div className="panels flex gap-4 pb-8">
-                        <div className="panel-1 rounded-t-lg overflow-hidden flex-1 max-w-[750px] relative">
+                    <div className="panels flex flex-wrap gap-4 pb-2 sm:pb-8">
+                        <div className="panel-1 rounded-t-lg overflow-hidden flex-1 min-w-full sm:min-w-[400px] max-w-[750px] relative">
                             <div className="cover h-[160px] animate-block w-full "></div>
                             <div className="avatar block">
                                 <div className="flex justify-between gap-4 flex-wrap px-4">
@@ -43,7 +43,7 @@ export default function PreRenderpre() {
                                 </div>
                             </div>
                         </div>
-                        <div className="panel-2 animate-block flex-1 max-w-[calc(1100px-750px)] rounded-t-md"></div>
+                        <div className="panel-2 min-w-[250px] max-w-[300px] animate-block w-full rounded-t-md"></div>
                     </div>
                 </div>
             </div>

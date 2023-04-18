@@ -46,7 +46,7 @@ export default function NavProfile() {
                             height={40}
                             style={{ objectFit: "cover" }}
                             src={globalContext.user.avatar}
-                            alt={globalContext.user.username || "celesup"}
+                            alt={globalContext.user.username || "Celehub user"}
                             className="rounded-full"
                             defaultValue={"images/default-avatar.png"}
                         />
@@ -162,7 +162,7 @@ export default function NavProfile() {
                         </div>
                         <span className="cs-divider"></span>
                         <p className="tertiary-text text-center text-sm pb-4">
-                            © 2023 Celesup, Inc.
+                            © 2023 Celehub, Inc.
                         </p>
                     </div>
                 </>

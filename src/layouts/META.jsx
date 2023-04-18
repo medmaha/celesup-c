@@ -11,8 +11,8 @@ function META({ title, keywords }) {
 }
 
 META.defaultProps = {
-    title: "Celesup Platform",
-    keywords: "Celesup, Social Media, Celebrity, Supporter",
+    title: "Celehub Platform",
+    keywords: "Celehub, Social Media, Celebrity, Supporter",
 }
 
 export default META

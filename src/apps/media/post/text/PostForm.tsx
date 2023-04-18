@@ -88,7 +88,7 @@ const PostForm = () => {
                             <select
                                 name=""
                                 id=""
-                                className="py-1 px-2 rounded-md text-sm tertiary-bg cursor-pointer"
+                                className="py-1 px-2 rounded-md text-sm primary-bg cursor-pointer"
                             >
                                 <option value="">Public</option>
                                 <option value="">Friends</option>
@@ -100,7 +100,7 @@ const PostForm = () => {
 
                 <div
                     ref={postFormWrapperRef}
-                    className="px-1 flex flex-col gap-[1rem] mt-[2rem]"
+                    className="px-1 flex flex-col gap-[1rem] mt-[2rem] w-full max-w-[450px] mx-auto"
                 >
                     <div>
                         <Input
@@ -117,7 +117,7 @@ const PostForm = () => {
                             }`}
                             value={form.caption || ""}
                             onChange={handleFormChange}
-                            className="tertiary-bg px-[.5rem]"
+                            className=" px-[.5rem]"
                         />
                     </div>
 
@@ -129,6 +129,7 @@ const PostForm = () => {
                             value={form.excerpt || ""}
                             placeholder="Add a Description"
                             rows={3}
+                            className=""
                             icon={false}
                         />
                     </div>

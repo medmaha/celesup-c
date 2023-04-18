@@ -61,8 +61,8 @@ export default class CSDateTime {
         return this.date.getDate().toString()
     }
 
-    format(type = "celesup") {
-        if (type === "celesup") {
+    format(type = "celehub") {
+        if (type === "celehub") {
             // ? 50min ago, 1hr ago, yesterday, thu, 14 mar
 
             let formattedDate

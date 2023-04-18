@@ -24,7 +24,7 @@ Input.defaultProps = {
     onChange: () => {},
     altText: "search bar",
     __class: "cs-input w-full",
-    placeholder: "Search celesup",
+    placeholder: "Search celehub",
 }
 
 export default Input

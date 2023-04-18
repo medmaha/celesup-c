@@ -67,7 +67,7 @@ const Footer = ({ uploader, dispatcher }: any) => {
     }
 
     return (
-        <>
+        <div className="w-full max-w-[450px] mx-auto mt-1">
             <button
                 className=""
                 title="Image"
@@ -101,6 +101,6 @@ const Footer = ({ uploader, dispatcher }: any) => {
                 </svg>
             </button>
             <button className="pl-1">Attach a file</button>
-        </>
+        </div>
     )
 }

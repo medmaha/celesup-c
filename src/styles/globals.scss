@@ -31,7 +31,7 @@ nav {
 
         &.active {
             color: var(--primary);
-            opacity: .9;
+            opacity: 1;
         }
     }
 }
@@ -199,7 +199,6 @@ nav {
         top: var(--TOP);
         padding: 0.25rem;
         border-radius: 0.25rem;
-        opacity: 0;
         pointer-events: none;
 
         /* min-width: 100px; */
@@ -209,6 +208,7 @@ nav {
         max-height: calc(100vh - 200px);
 
         display: flex;
+        opacity: 0;
         flex-direction: column;
         gap: 0.3rem;
 
@@ -261,30 +261,6 @@ nav {
 // #-----------------------------------------------------------------------------------------------------------------------------------
 // ?---------------------------------------              Text Area              -------------------------------------------------
 // #-----------------------------------------------------------------------------------------------------------------------------------
-
-
-
-textarea {
-    &.cs-textarea {
-        padding-left: 0.5rem;
-        padding-top: 0.5rem;
-        padding-bottom: 0.5rem;
-        border-radius: 0.375rem;
-
-        resize: none;
-        overflow-y: hidden;
-        transition-duration: 150ms;
-        width: 100%;
-        background-color: var(--bg-primary);
-        border: none;
-        outline: 2px solid var(--bg-secondary);
-
-        &:focus {
-            outline-width: 3px;
-            outline-color: var(--primary-light);
-        }
-    }
-}
 
 
 
