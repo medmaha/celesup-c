@@ -198,7 +198,9 @@ function Content({ data, setData }: Props) {
                                                                 "3",
                                                         }}
                                                     >
-                                                        "{notification.hint}"
+                                                        {'" '}
+                                                        {notification.hint}
+                                                        {' "'}
                                                     </p>
                                                 )}
                                             </div>
