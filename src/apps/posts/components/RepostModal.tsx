@@ -11,6 +11,10 @@ import { Post } from "../types/post"
 import Headers from "./Headers"
 import Media from "./Media"
 import Typography from "./Typography"
+import CSCookies from "../../../library/cookies"
+import { updatePostForm, updatePostPages } from "../../../redux/create"
+import { updateMoods } from "../../../redux/app"
+import CSToast from "../../../library/toast"
 
 let cachedTimeout: NodeJS.Timeout
 
@@ -27,6 +31,36 @@ export default function RepostModal({ setRepost, post_id, author }: any) {
         toggleDialog(true)
     }
     function repost() {}
+    var animationId
+
+    function animateScroll(duration: number) {
+        var start = window.pageYOffset
+        var end = start - -200
+        var distance = end - start
+        var startTime: null | number = null
+
+        function animation(currentTime: number) {
+            if (startTime === null) startTime = currentTime
+            var timeElapsed = currentTime - startTime
+            var scrollPosition = easeInOutCubic(
+                timeElapsed,
+                start,
+                distance,
+                duration,
+            )
+            window.scrollTo(0, scrollPosition)
+            if (timeElapsed < duration) requestAnimationFrame(animation)
+        }
+
+        function easeInOutCubic(t: number, b: number, c: number, d: number) {
+            t /= d / 2
+            if (t < 1) return (c / 2) * t * t * t + b
+            t -= 2
+            return (c / 2) * (t * t * t + 2) + b
+        }
+
+        requestAnimationFrame(animation)
+    }
 
     useEffect(() => {
         const elm = elementRef.current
@@ -37,8 +71,14 @@ export default function RepostModal({ setRepost, post_id, author }: any) {
                 setRepost(false)
             }, 6000)
 
-            elm.scrollIntoView({ behavior: "smooth" })
+            const elmPosition = elm.getBoundingClientRect().y
+            const screenHeight = window.innerHeight
 
+            const screenAndPositionRatio = screenHeight / elmPosition
+
+            if (screenAndPositionRatio < 1.3) {
+                animateScroll(100)
+            }
             return () => {
                 elm.removeEventListener("click", clearCachedTimeout)
             }
@@ -125,6 +165,7 @@ export default function RepostModal({ setRepost, post_id, author }: any) {
                     actionBtnText={"Share post"}
                     jsxContent={
                         <ModalBody
+                            setRepost={setRepost}
                             post_id={post_id}
                             submit={submitDialog}
                             setSubmitDialog={setSubmitDialog}
@@ -136,11 +177,11 @@ export default function RepostModal({ setRepost, post_id, author }: any) {
     )
 }
 
-function ModalBody({ post_id, submit, setSubmitDialog }: any) {
+function ModalBody({ post_id, submit, setSubmitDialog, setRepost }: any) {
     const [post, setPost] = useState<Post | null>(null)
     const [excerpt, setExcerpt] = useState("")
 
-    const { user } = useContext(GlobalContext)
+    const { user, storeDispatch } = useContext(GlobalContext)
 
     useEffect(() => {
         if (submit) {
@@ -150,13 +191,33 @@ function ModalBody({ post_id, submit, setSubmitDialog }: any) {
     }, [submit])
 
     async function createRepost() {
-        alert(excerpt)
         if (excerpt.length > 4) {
             try {
                 const { data } = await celesupBackendApi.post("/posts/repost", {
                     post_id,
                     excerpt,
                 })
+                const callback = () => {
+                    CSCookies.set({
+                        name: "post",
+                        value: JSON.stringify(data),
+                    })
+                    storeDispatch(updatePostForm({ dispatch: true }))
+                    storeDispatch(updatePostPages({ dispatch: true }))
+                    storeDispatch(
+                        updateMoods({
+                            updateFeeds: "post",
+                            create: false,
+                        }),
+                    )
+                }
+                callback()
+                new CSToast({
+                    text: "Repost successful",
+                    autoClose: 3000,
+                    className: "success",
+                })
+                setRepost(false)
             } catch (error: any) {
                 console.error(error.message)
             }

@@ -68,6 +68,12 @@ export default function PostContainer() {
                 posts,
                 reFetchPosts,
             )
+            const container = postsWrapperRef.current
+            if (container) {
+                document
+                    .getElementById("composeCreate")
+                    ?.scrollIntoView({ behavior: "smooth" })
+            }
         }
     }, [posts.data])
 

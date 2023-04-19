@@ -56,7 +56,7 @@ export default function Profile({ data }: Props) {
                                                 position: "absolute",
                                                 left: "1em",
                                             }}
-                                            className="image z-10 bottom-[-2em] h-[130px] rounded-full w-[130px] border-[1px] cs-border"
+                                            className="image bottom-[-2em] h-[130px] rounded-full w-[130px] border-[1px] cs-border"
                                         >
                                             <Image
                                                 className="rounded-full"

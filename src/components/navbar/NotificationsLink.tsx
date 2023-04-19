@@ -187,7 +187,7 @@ function Content({ data, setData }: Props) {
                                                 <p>{notification.action}</p>
                                                 {notification.hint && (
                                                     <p
-                                                        className="line-clamp-3"
+                                                        className="line-clamp-3 secondary-text"
                                                         style={{
                                                             overflow: "hidden",
                                                             display:
@@ -198,7 +198,7 @@ function Content({ data, setData }: Props) {
                                                                 "3",
                                                         }}
                                                     >
-                                                        {notification.hint}
+                                                        "{notification.hint}"
                                                     </p>
                                                 )}
                                             </div>
@@ -259,7 +259,7 @@ function Content({ data, setData }: Props) {
                                                 <p>{notification.action}</p>
                                                 {notification.hint && (
                                                     <p
-                                                        className="line-clamp-3"
+                                                        className="line-clamp-3 secondary-text"
                                                         style={{
                                                             overflow: "hidden",
                                                             display:
