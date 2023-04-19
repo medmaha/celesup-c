@@ -4,7 +4,7 @@ import Icon from "../../../components/UI/Icon"
 import UserCard from "../../../components/UI/UserCard"
 import CSTypography from "../../../library/typography"
 
-export default function Headers({ data, isChild }: any) {
+export default function Headers({ data, isChild, menu = true }: any) {
     return (
         <div className="flex mobile:flex-wrap gap-2 justify-between items-start w-full">
             <div className="flex flex-col">
@@ -56,17 +56,19 @@ export default function Headers({ data, isChild }: any) {
             </div>
             {!isChild && (
                 <div className="flex flex-col sm:pr-1 sm:flex-row sm:gap-2">
-                    <div className="justify-end flex items-center leading-[20px]">
-                        <button
-                            className="cursor-pointer rounded-full active:outline
-                        outline-slate-500 p-1 outline-1 leading-[1rem]"
-                        >
-                            <Icon
-                                name={"ellipsesHorizontal"}
-                                className="w-[.5rem]_"
-                            />
-                        </button>
-                    </div>
+                    {menu && (
+                        <div className="justify-end flex items-center leading-[20px]">
+                            <button
+                                className="cursor-pointer rounded-full active:outline
+                            outline-slate-500 p-1 outline-1 leading-[1rem]"
+                            >
+                                <Icon
+                                    name={"ellipsesHorizontal"}
+                                    className="w-[.5rem]_"
+                                />
+                            </button>
+                        </div>
+                    )}
                     <div
                         className="hidden mobile:flex items-center sm:order-first"
                         title={data.created_at}

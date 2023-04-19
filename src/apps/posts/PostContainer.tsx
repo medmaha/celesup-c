@@ -153,6 +153,8 @@ export default function PostContainer() {
                     </span>
                 </p>
             )}
+
+            <div className="w-full py-4"></div>
         </div>
     )
 }

@@ -94,9 +94,9 @@ export default function Post({ data }: Props) {
                             <Media data={post} />
                             {post.child && (
                                 <>
-                                    <div className="cs-outline outline-[1px] p-2 mt-4 rounded-md">
+                                    <div className="cs-outline outline-[1px] p-2 mt-4 rounded-xl">
                                         <div className="flex w-full">
-                                            <div className="mr-[10px]  min-w-max">
+                                            <div className="mr-[10px] min-w-max">
                                                 <UserCard
                                                     btnElement={
                                                         <div className="rounded-full outline-2 cs-outline w-[35px] h-[35px]">

@@ -37,6 +37,8 @@ export default function RepostModal({ setRepost, post_id, author }: any) {
                 setRepost(false)
             }, 6000)
 
+            elm.scrollIntoView({ behavior: "smooth" })
+
             return () => {
                 elm.removeEventListener("click", clearCachedTimeout)
             }
@@ -48,9 +50,9 @@ export default function RepostModal({ setRepost, post_id, author }: any) {
             {!dialog && (
                 <div
                     ref={elementRef}
-                    className="absolute top-full right-[-5em] mobile:right-[-3em] lg:right-[-10em] mt-2 z-10 mx-1"
+                    className="absolute top-full right-[-7em] sm:right-[-5em] mobile:right-[-3em] lg:right-[-10em] mt-2 z-10 mx-1"
                 >
-                    <div className="cs-card w-full max-w-[400px] min-w-max block p-4">
+                    <div className="cs-card w-full max-w-[320px] md:max-w-[400px] min-w-max block p-4">
                         <div className="flex flex-col gap-2">
                             <div className="flex gap-2 items-center secondary-text">
                                 <div className="">
@@ -72,7 +74,7 @@ export default function RepostModal({ setRepost, post_id, author }: any) {
                                     >
                                         Repost with your thoughts
                                     </button>
-                                    <p className="text-sm tracking-wide tertiary-text">
+                                    <p className="text-sm tracking-wide tertiary-text max-w-[280px]  sm:max-w-[320px] md:max-w-[400px]">
                                         Create a new Post with{" "}
                                         {CSTypography.capitalize(author)}&apos;s
                                         post attached
@@ -99,7 +101,7 @@ export default function RepostModal({ setRepost, post_id, author }: any) {
                                     >
                                         Repost
                                     </button>
-                                    <p className="text-sm tracking-wide tertiary-text">
+                                    <p className="text-sm tracking-wide tertiary-text max-w-[280px] sm:max-w-[320px] md:max-w-[400px]">
                                         Instantly bring{" "}
                                         {CSTypography.capitalize(author)}&apos;s
                                         post to other&apos;s feeds
@@ -187,12 +189,12 @@ function ModalBody({ post_id, submit, setSubmitDialog }: any) {
                         <div className="overflow-hidden overflow-y-auto max-h-[300px] mt-1 p-1 pr-2 h-full w-full block">
                             <div className="flex items-center gap-[.6rem] pt-1">
                                 <div className="min-w-max">
-                                    <div className="rounded-full outline-2 cs-outline w-[60px] h-[60px]">
+                                    <div className="rounded-full outline-2 cs-outline w-[50px] h-[50px]">
                                         {user?.avatar && (
                                             <Image
                                                 className="rounded-full w-full h-full"
-                                                width={60}
-                                                height={60}
+                                                width={50}
+                                                height={50}
                                                 style={{ objectFit: "cover" }}
                                                 src={user.avatar}
                                                 alt={
@@ -228,34 +230,36 @@ function ModalBody({ post_id, submit, setSubmitDialog }: any) {
                                     </div>
                                 </div>
                             </div>
-                            <div className="py-2">
-                                <Textarea
-                                    rows={3}
-                                    icon={false}
-                                    value={excerpt}
-                                    onChange={(ev: any) => {
-                                        setExcerpt(ev.target.value)
-                                    }}
-                                    submitOnEnter={false}
-                                    placeholder="Start writing or use @ to mention people. ect"
-                                />
-                            </div>
-                            <div className="p-2 outline-[1px] cs-outline rounded-md">
-                                <div className="flex w-full my-4">
-                                    <div className="mr-[12px] w-[35px] h-[35px] min-w-max">
-                                        <Image
-                                            className="rounded-full"
-                                            width={35}
-                                            height={35}
-                                            style={{ objectFit: "cover" }}
-                                            src={post.author.avatar}
-                                            alt={post.author.username}
-                                        />
-                                    </div>
-                                    <div className="flex flex-col w-full">
-                                        <Headers data={post} />
-                                        <Typography data={post} />
-                                        <Media data={post} />
+                            <div className="pl-12">
+                                <div className="py-2">
+                                    <Textarea
+                                        rows={2}
+                                        icon={false}
+                                        value={excerpt}
+                                        onChange={(ev: any) => {
+                                            setExcerpt(ev.target.value)
+                                        }}
+                                        submitOnEnter={false}
+                                        placeholder="Start writing or use @ to mention people. ect"
+                                    />
+                                </div>
+                                <div className="p-2 outline-[1px] cs-outline rounded-md">
+                                    <div className="flex w-full my-4">
+                                        <div className="mr-[12px] w-[35px] h-[35px] min-w-max">
+                                            <Image
+                                                className="rounded-full"
+                                                width={35}
+                                                height={35}
+                                                style={{ objectFit: "cover" }}
+                                                src={post.author.avatar}
+                                                alt={post.author.username}
+                                            />
+                                        </div>
+                                        <div className="flex flex-col w-full">
+                                            <Headers data={post} menu={false} />
+                                            <Typography data={post} />
+                                            <Media data={post} />
+                                        </div>
                                     </div>
                                 </div>
                             </div>
