@@ -18,9 +18,20 @@ import CSToast from "../../../library/toast"
 
 let cachedTimeout: NodeJS.Timeout
 
-export default function RepostModal({ setRepost, post_id, author }: any) {
+type RepostProps = {
+    setRepost: (data: boolean) => any
+    post_id: string
+    author: string
+}
+
+export default function RepostModal({
+    setRepost,
+    post_id,
+    author,
+}: RepostProps) {
     const elementRef = useRef(document.createElement("div"))
     const [dialog, toggleDialog] = useState(false)
+    const [instantShare, setInstantShare] = useState(false)
     const [submitDialog, setSubmitDialog] = useState(false)
 
     function clearCachedTimeout() {
@@ -30,8 +41,9 @@ export default function RepostModal({ setRepost, post_id, author }: any) {
     function openModal() {
         toggleDialog(true)
     }
-    function repost() {}
-    var animationId
+    function repost() {
+        setInstantShare(true)
+    }
 
     function animateScroll(duration: number) {
         var start = window.pageYOffset
@@ -115,9 +127,9 @@ export default function RepostModal({ setRepost, post_id, author }: any) {
                                         Repost with your thoughts
                                     </button>
                                     <p className="text-sm tracking-wide tertiary-text max-w-[280px]  sm:max-w-[320px] md:max-w-[400px]">
-                                        Create a new Post with{" "}
+                                        Create a new post with{" "}
                                         {CSTypography.capitalize(author)}&apos;s
-                                        post attached
+                                        post attached to it
                                     </p>
                                 </div>
                             </div>
@@ -152,6 +164,17 @@ export default function RepostModal({ setRepost, post_id, author }: any) {
                     </div>
                 </div>
             )}
+
+            {instantShare && (
+                <ModalBody
+                    setRepost={setRepost}
+                    post_id={post_id}
+                    submit={submitDialog}
+                    setSubmitDialog={setSubmitDialog}
+                    instantShare={instantShare}
+                />
+            )}
+
             {dialog && (
                 <Modal
                     title="Share"
@@ -169,6 +192,7 @@ export default function RepostModal({ setRepost, post_id, author }: any) {
                             post_id={post_id}
                             submit={submitDialog}
                             setSubmitDialog={setSubmitDialog}
+                            instantShare={instantShare}
                         />
                     }
                 />
@@ -177,9 +201,24 @@ export default function RepostModal({ setRepost, post_id, author }: any) {
     )
 }
 
-function ModalBody({ post_id, submit, setSubmitDialog, setRepost }: any) {
+type Props = {
+    post_id: string
+    submit: boolean
+    instantShare: boolean
+    setRepost: (data: boolean) => void
+    setSubmitDialog: (data: boolean) => void
+}
+
+function ModalBody({
+    post_id,
+    submit,
+    setSubmitDialog,
+    setRepost,
+    instantShare = false,
+}: Props) {
     const [post, setPost] = useState<Post | null>(null)
     const [excerpt, setExcerpt] = useState("")
+    const [pending, togglePending] = useState(false)
 
     const { user, storeDispatch } = useContext(GlobalContext)
 
@@ -190,9 +229,26 @@ function ModalBody({ post_id, submit, setSubmitDialog, setRepost }: any) {
         }
     }, [submit])
 
+    useEffect(() => {
+        if (instantShare) {
+            createRepost()
+            setSubmitDialog(false)
+        }
+    }, [instantShare])
+
     async function createRepost() {
-        if (excerpt.length > 4) {
+        togglePending(true)
+        if (excerpt.length > 4 || !!instantShare) {
             try {
+                type __DATA = {
+                    post_id: string
+                    excerpt: null | string
+                }
+                const __data: __DATA = { post_id, excerpt: null }
+
+                if (!instantShare) {
+                    __data["excerpt"] = excerpt
+                }
                 const { data } = await celesupBackendApi.post("/posts/repost", {
                     post_id,
                     excerpt,
@@ -221,6 +277,7 @@ function ModalBody({ post_id, submit, setSubmitDialog, setRepost }: any) {
             } catch (error: any) {
                 console.error(error.message)
             }
+            togglePending(false)
         }
     }
 
@@ -242,9 +299,18 @@ function ModalBody({ post_id, submit, setSubmitDialog, setRepost }: any) {
         getPost()
     }, [])
 
+    if (instantShare) return <></>
     return (
         <>
-            <div className="w-full min-h-[200px] h-full max-w-[550px] pb-2">
+            <div className="w-full relative min-h-[200px] h-full max-w-[550px] pb-2">
+                {pending && (
+                    <div className="absolute top-0 left-0 w-full h-full bg-black bg-opacity-50">
+                        <Loading
+                            text={instantShare ? "Reposting" : "Creating"}
+                            loader="spinner"
+                        />
+                    </div>
+                )}
                 {post?.key && user && (
                     <>
                         <div className="overflow-hidden overflow-y-auto max-h-[300px] mt-1 p-1 pr-2 h-full w-full block">
@@ -256,7 +322,9 @@ function ModalBody({ post_id, submit, setSubmitDialog, setRepost }: any) {
                                                 className="rounded-full w-full h-full"
                                                 width={50}
                                                 height={50}
-                                                style={{ objectFit: "cover" }}
+                                                style={{
+                                                    objectFit: "cover",
+                                                }}
                                                 src={user.avatar}
                                                 alt={
                                                     "author " +
@@ -311,7 +379,9 @@ function ModalBody({ post_id, submit, setSubmitDialog, setRepost }: any) {
                                                 className="rounded-full"
                                                 width={35}
                                                 height={35}
-                                                style={{ objectFit: "cover" }}
+                                                style={{
+                                                    objectFit: "cover",
+                                                }}
                                                 src={post.author.avatar}
                                                 alt={post.author.username}
                                             />

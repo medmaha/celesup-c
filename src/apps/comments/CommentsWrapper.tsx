@@ -1,4 +1,4 @@
-import React, { useRef, useLayoutEffect } from "react"
+import React, { useRef, useLayoutEffect, useState } from "react"
 import { celesupBackendApi } from "../../axiosInstance"
 import Textarea from "../../components/UI/Textarea"
 import { usePostComment } from "../../hooks"
@@ -13,6 +13,8 @@ export default function CommentsWrapper({ post }: Props) {
     const commentRapperRef = useRef<HTMLDivElement>(null)
     const { comments, getComments, updateComments } = usePostComment(post.key)
 
+    const [commentText, setCommentText] = useState("")
+
     useLayoutEffect(() => {
         if (commentRapperRef.current && post.key) {
             commentRapperRef.current.style.display = "block"
@@ -26,9 +28,7 @@ export default function CommentsWrapper({ post }: Props) {
     }, [post])
 
     function handleCreateCommentChange(ev: any) {
-        const content = commentRapperRef.current!.querySelector(
-            `#post_${post.key}_comment_create`,
-        )
+        setCommentText(ev.currentTarget.value)
     }
 
     function handleCreateCommentSubmit(ev: any) {
@@ -88,6 +88,7 @@ export default function CommentsWrapper({ post }: Props) {
                     placeholder="Make a comment..."
                     className="w-full mt-2 p-2 rounded-lg"
                     submitOnEnter={true}
+                    value={commentText}
                     onChange={handleCreateCommentChange}
                     onSubmit={handleCreateCommentSubmit}
                 />

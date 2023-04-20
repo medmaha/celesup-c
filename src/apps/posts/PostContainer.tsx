@@ -68,12 +68,6 @@ export default function PostContainer() {
                 posts,
                 reFetchPosts,
             )
-            const container = postsWrapperRef.current
-            if (container) {
-                document
-                    .getElementById("composeCreate")
-                    ?.scrollIntoView({ behavior: "smooth" })
-            }
         }
     }, [posts.data])
 
@@ -85,6 +79,9 @@ export default function PostContainer() {
             CSCookies.del("post")
             updateMoods({ updateFeeds: null })
             setPosts((prev) => ({ ...prev, data: [post, ...prev.data] }))
+            document
+                .getElementById("composeCreate")
+                ?.scrollIntoView({ behavior: "smooth" })
         }
     }, [moods])
 

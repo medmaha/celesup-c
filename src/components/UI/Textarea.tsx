@@ -3,6 +3,7 @@ import Icon from "./Icon"
 
 export default function Textarea(props: any) {
     const textareaRef = useRef(document.createElement("textarea"))
+
     const height = "2.25rem"
 
     const handleBlur = useCallback(() => {
@@ -85,7 +86,7 @@ export default function Textarea(props: any) {
 
             {props.icon && (
                 <div
-                    className={`absolute inset-y-0 right-0 m-2 flex items-end justify-center`}
+                    className={`absolute bottom-[.3em] right-0 m-2 flex items-end justify-center`}
                 >
                     <button
                         onClick={handleSubmit}
@@ -113,6 +114,6 @@ Textarea.defaultProps = {
     childrenClassName: "",
     submitOnEnter: false,
     id: `random-${Math.random()}`,
-    onSubmit: (ev = EventTarget) => {},
-    onChange: (ev = EventTarget) => {},
+    onSubmit: () => {},
+    onChange: () => {},
 }
