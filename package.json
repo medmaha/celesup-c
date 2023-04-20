@@ -25,6 +25,7 @@
         "react-easy-crop": "^4.7.4",
         "react-redux": "^8.0.5",
         "sass": "^1.58.3",
+        "slugify": "^1.6.6",
         "typescript": "4.9.5"
     },
     "devDependencies": {
