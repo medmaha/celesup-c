@@ -54,7 +54,7 @@ export default function PostContainer({
     data,
     dataSrc = "/feeds",
 }: {
-    data: T.PostList
+    data: T.PostList | null
     dataSrc: string
 }) {
     const { moods } = useContext(GlobalContext)
