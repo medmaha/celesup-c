@@ -21,7 +21,7 @@ export default function Index() {
             {user && (
                 <div className="flex-1 flex flex-col gap-[.4rem] items-center lg:basis-[550px] min-h-[100vh] max-w-[610px]">
                     <Compose />
-                    <PostContainer />
+                    <PostContainer data={null} dataSrc="/feeds" />
                 </div>
             )}
 
