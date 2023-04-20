@@ -22,6 +22,7 @@ import PostForm from "./text"
 import Photo from "./photo"
 import Preview from "./preview"
 import Loading from "../../../components/UI/Loading"
+import { updateActiveLink } from "../../../redux/app"
 
 export const PostContext = createContext({})
 
@@ -83,10 +84,24 @@ export default function CreatePost({ setConfig, onClose }: Params) {
         globalContext.storeDispatch(updatePostForm({ dispatch: true }))
         globalContext.storeDispatch(updatePostPages({ dispatch: true }))
 
-        // return () => {
-        //     globalContext.storeDispatch(updateMoods({ updateFeeds: false }))
-        //     globalContext.storeDispatch(updateMoods({ create: false }))
-        // }
+        return () => {
+            // globalContext.storeDispatch(updateMoods({ updateFeeds: false }))
+            // globalContext.storeDispatch(updateMoods({ create: false }))
+            // globalContext.storeDispatch(updateActiveLink({ data: "home" }))
+            let pathName = window.location.pathname
+            let paths = pathName.match(/\//g)
+
+            if (paths?.length! > 1) {
+                pathName = ""
+            } else {
+                pathName = pathName.replace(/\//, "") || "home"
+            }
+            globalContext.storeDispatch(
+                updateActiveLink({
+                    data: pathName,
+                }),
+            )
+        }
         // eslint-disable-next-line
     }, [])
 

@@ -68,14 +68,14 @@ export const appSlice = createSlice({
             if (!!activeLink) {
                 const activeLinkElement = document.querySelector(
                     `nav [data-link="${activeLink}"]`,
-                )!
-                activeLinkElement.classList.remove("active")
+                )
+                activeLinkElement?.classList.remove("active")
             }
             if (!!currentLink) {
                 const currentLinkElement = document.querySelector(
                     `nav [data-link="${currentLink}"]`,
-                )!
-                currentLinkElement.classList.add("active")
+                )
+                currentLinkElement?.classList.add("active")
             }
 
             state.activeLink = currentLink

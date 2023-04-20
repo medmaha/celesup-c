@@ -71,7 +71,7 @@ export default function Post({ data }: Props) {
             {post.key && (
                 <div className="w-full max-w-[550px]">
                     <div className="flex w-full">
-                        <div className="mr-[12px]  min-w-max">
+                        <div className="mr-[12px] px-1 sm:px-0 min-w-max">
                             <UserCard
                                 btnElement={
                                     <div className="rounded-full outline-2 cs-outline w-[48px] h-[48px]">
@@ -94,9 +94,9 @@ export default function Post({ data }: Props) {
                             <Media data={post} />
                             {post.child && (
                                 <>
-                                    <div className="cs-outline outline-[1px] p-2 mt-4 rounded-xl">
+                                    <div className="cs-outline outline-[1px] p-2 mt-4 rounded-2xl sm:rounded-xl max-w-max">
                                         <div className="flex w-full">
-                                            <div className="mr-[10px] min-w-max">
+                                            <div className="mr-[8px] sm:mr-[10px] min-w-max">
                                                 <UserCard
                                                     btnElement={
                                                         <div className="rounded-full outline-2 cs-outline w-[35px] h-[35px]">

@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useRef, useLayoutEffect } from "react"
 import Input from "./Input"
+import slugify from "slugify"
 
 type Props = {
     value: string | null
@@ -57,7 +58,7 @@ const HashtagField = (props: Props) => {
         let data: string[] = []
 
         values.split(",").forEach((tag) => {
-            const hashtag = tag.trim()
+            const hashtag = slugify(tag, { trim: true })
 
             if (hashtag === "#") {
                 data = [...data]

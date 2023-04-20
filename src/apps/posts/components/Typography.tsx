@@ -1,5 +1,6 @@
 import React from "react"
 import { Post } from "../types/post"
+import Link from "next/link"
 
 type Props = {
     data: Post
@@ -27,8 +28,20 @@ export default function Typography({ data }: Props) {
                 </p>
             )}
             {data.hashtags && (
-                <p className="prose flex gap-3 tracking-wide text-[18px] text-primary cursor-pointer">
-                    <span>#{data.hashtags.replace("#", "")}</span>
+                <p className="prose flex gap-3 max-w-full flex-wrap">
+                    {data.hashtags.split(",").map((hashtag) => {
+                        return (
+                            <Link
+                                className="tracking-wide text-[18px] text-primary font-semibold"
+                                key={hashtag}
+                                href={`/discover?hashtag=${hashtag
+                                    .replace("#", "")
+                                    .trim()}`}
+                            >
+                                {hashtag}
+                            </Link>
+                        )
+                    })}
                 </p>
             )}
             {data.excerpt && (

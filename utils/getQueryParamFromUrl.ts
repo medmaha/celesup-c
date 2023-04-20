@@ -1,5 +1,5 @@
 export function getQueryParamsFromUrl(url: string) {
-    const data = {} as any
+    const data = {} as { [key: string]: string }
     try {
         const query_string = url.split("?")[1]
         const queries = query_string.split("&")

@@ -98,7 +98,7 @@ export default function NavLinks({ createLinkHandler }: Props) {
 const links = [
     { icon: "house", name: "Home", path: "/" },
     { icon: "create", name: "Create", path: null },
-    { icon: "hashtag", name: "Explore", path: "/discover" },
+    { icon: "hashtag", name: "Discover", path: "/discover" },
     { icon: "video", name: "Videos", path: "/videos" },
     { icon: "notification", name: "Notifications", path: null },
     { icon: "message", name: "Messages", path: "/messages" },

@@ -11,7 +11,8 @@ import Post from "./Post"
 
 import * as T from "./types/post"
 
-function init(): T.PostList {
+function init(data: null | T.PostList = null): T.PostList {
+    if (!!data?.page_index) return data
     return {
         objects_count: 0,
         page_index: 0,
@@ -49,16 +50,22 @@ function infiniteScrollIntersection(
     }
 }
 
-export default function PostContainer() {
+export default function PostContainer({
+    data,
+    dataSrc = "/feeds",
+}: {
+    data: T.PostList
+    dataSrc: string
+}) {
     const { moods } = useContext(GlobalContext)
 
-    const [posts, setPosts] = useState(init())
+    const [posts, setPosts] = useState(init(data))
     const [loading, toggleLoading] = useState(false)
 
     const postsWrapperRef = useRef<HTMLDivElement>(null)
 
     useEffect(() => {
-        fetchPosts()
+        if (posts.page_index < 1) fetchPosts()
     }, [])
 
     useEffect(() => {
@@ -69,7 +76,7 @@ export default function PostContainer() {
                 reFetchPosts,
             )
         }
-    }, [posts.data])
+    }, [posts])
 
     useEffect(() => {
         const _p = CSCookies.get("post")
@@ -80,13 +87,13 @@ export default function PostContainer() {
             updateMoods({ updateFeeds: null })
             setPosts((prev) => ({ ...prev, data: [post, ...prev.data] }))
             document
-                .getElementById("composeCreate")
+                .getElementById("firstElementAfterNav")
                 ?.scrollIntoView({ behavior: "smooth" })
         }
     }, [moods])
 
     const fetchPosts = async (
-        url: string = "/feeds",
+        url: string = dataSrc,
         update: boolean = false,
     ) => {
         toggleLoading(true)
@@ -137,7 +144,8 @@ export default function PostContainer() {
                 return (
                     <section
                         data-post
-                        key={post.key}
+                        data-key={post.key}
+                        key={post.key + Date.now().toString()}
                         className="flex justify-center w-full"
                     >
                         <Post data={post} />

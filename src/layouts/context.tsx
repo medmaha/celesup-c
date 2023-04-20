@@ -1,5 +1,10 @@
 import { createContext, useEffect, useState } from "react"
-import { updateAuthUser, updateAuthTokens, updateMoods } from "../redux/app"
+import {
+    updateAuthUser,
+    updateAuthTokens,
+    updateMoods,
+    updateActiveLink,
+} from "../redux/app"
 import { useDispatch, useSelector } from "react-redux"
 import useAuthenticate from "./hooks/useAuthenticate"
 

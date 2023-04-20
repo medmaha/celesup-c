@@ -14,13 +14,15 @@ export default function Compose() {
             "
         >
             <div className="flex justify-around px-1 gap-4 sm:gap-2 items-center w-full overflow-hidden">
-                <Image
-                    src="/images/default-avatar.png"
-                    width={45}
-                    height={45}
-                    alt="compose"
-                    className="rounded-full outline-1 cs-outline"
-                />
+                {globalContext.user && (
+                    <Image
+                        src={globalContext.user.avatar}
+                        width={45}
+                        height={45}
+                        alt="compose"
+                        className="rounded-full outline-1 cs-outline"
+                    />
+                )}
                 <div className="w-full shrink flex flex-col gap-4 h-max px-1 py-2 justify-center">
                     <div
                         className="py-3 px-2 rounded-lg cursor-pointer
